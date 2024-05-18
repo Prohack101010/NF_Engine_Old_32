@@ -49,6 +49,8 @@ class SUtil
     			return aDir;
     		else
     			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+        else
+            return '';
 		#else
 		return '';
 		#end
