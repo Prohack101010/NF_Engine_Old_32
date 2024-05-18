@@ -35,24 +35,19 @@ class SUtil
 		if (aDir != null && aDir.length > 0) {
 			return aDir;
 		}
-        if (ClientPrefs.StorageType == 'NF Engine')
-    	{
+        if (ClientPrefs.StorageType == 'NF Engine') {
     	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     	}
-    	if (ClientPrefs.StorageType == 'Psych Engine')
-    	{
+    	if (ClientPrefs.StorageType == 'Psych Engine') {
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
     	}
-    	if (ClientPrefs.StorageType == 'NovaFlare Engine')
-    	{
+    	if (ClientPrefs.StorageType == 'NovaFlare Engine') {
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
     	}
-    	if (ClientPrefs.StorageType == 'Codename Engine')
-    	{
+    	if (ClientPrefs.StorageType == 'Codename Engine') {
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
     	}
-    	else
-    	{
+    	else {
     	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     	}
 		#else
