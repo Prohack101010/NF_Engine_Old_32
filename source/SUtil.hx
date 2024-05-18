@@ -34,8 +34,10 @@ class SUtil
 		#if android
 		if (aDir != null && aDir.length > 0) {
 			return aDir;
+		}
 		else
-		switch (ClientPrefs.hudType)
+		{
+		switch (ClientPrefs.StorageType)
 		{
 		case 'NF Engine':
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
@@ -48,6 +50,7 @@ class SUtil
 
 		case 'Codename Engine':
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
+		}
 		}
 		#else
 		return '';
