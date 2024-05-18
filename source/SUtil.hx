@@ -32,21 +32,15 @@ class SUtil
 	public static function getPath():String
 	{
 		#if android
-		if (ClientPrefs.StorageType == 'NovaFlare Engine')
-    		if (aDir != null && aDir.length > 0)
-    		    return aDir;
-    		else
-    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+		if (aDir != null && aDir.length > 0)
+            return aDir;
+        else
+        if (ClientPrefs.StorageType == 'NovaFlare Engine')
+    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
-    		if (aDir != null && aDir.length > 0)
-    		    return aDir;
-    		else
-    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
-    		if (aDir != null && aDir.length > 0)
-    			return aDir;
-    		else
-    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
         else
             return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
