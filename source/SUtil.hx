@@ -42,17 +42,28 @@ class SUtil
             return aDir3;
         else
         if (ClientPrefs.StorageType == 'NovaFlare Engine')
-            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
-            return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
     		return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
-		    return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
-            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
     		return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
-            return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-            return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+        else
+            if (!ClientPrefs.StorageType == 'NovaFlare Engine' && !ClientPrefs.StorageType == 'Psych Engine')
+                return aDir3;
+                return aDir2;
+                return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+            if (!ClientPrefs.StorageType == 'NovaFlare Engine' && !ClientPrefs.StorageType == 'NF Engine')
+                return aDir;
+                return aDir3;
+                return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+            if (!ClientPrefs.StorageType == 'NF Engine' && !ClientPrefs.StorageType == 'Psych Engine')
+                return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+                return aDir2;
+                return aDir;
+            else
+                return aDir3;
+                return aDir2;
+                return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
