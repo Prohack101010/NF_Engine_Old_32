@@ -102,7 +102,7 @@ class TweaksSubState extends BaseOptionsMenu
 			'StorageType',
 			'string',
 			'NF Engine',
-			['NF Engine', 'Psych Engine', 'NovaFlare Engine', 'Codename Engine']);
+			['NF Engine', 'Psych Engine', 'NovaFlare Engine']);
 		addOption(option);
 		
 		

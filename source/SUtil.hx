@@ -26,31 +26,26 @@ using StringTools;
 class SUtil
 {
 	#if android
-	private static var aDir:String = null; // android dir
+	private static var aDir:String = null; // NF Engine dir
+	private static var psychDir:String = null; // PsychEngine dir
+	private static var novaDir:String = null; // NovaFlare Engine dir
 	#end
 
 	public static function getPath():String
 	{
 		#if android
-		if (aDir != null && aDir.length > 0) {
+		if (ClientPrefs.StorageType == 'NovaFlare Engine' && novaDir != null && novaDir.length > 0)
+		    return novaDir;
+		elseif (ClientPrefs.StorageType == 'NovaFlare Engine' && !novaDir != null && !novaDir.length > 0)
+		    return novaDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+		elseif (ClientPrefs.StorageType == 'Psych Engine' && psychDir != null && psychDir.length > 0)
+		    return psychDir;
+		elseif (ClientPrefs.StorageType == 'Psych Engine' && !psychDir != null && !psychDir.length > 0)
+		    return psychDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+		elseif (ClientPrefs.StorageType == 'NF Engine' && aDir != null && aDir.length > 0)
 			return aDir;
-		}
-        if (ClientPrefs.StorageType == 'NF Engine') {
-    	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-    	}
-    	if (ClientPrefs.StorageType == 'Psych Engine') {
-    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
-    	}
-    	if (ClientPrefs.StorageType == 'NovaFlare Engine') {
-    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
-    	}
-    	if (ClientPrefs.StorageType == 'Codename Engine') {
-    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
-    	}
-    	else
-    	{
-    	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-    	}
+		else
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
