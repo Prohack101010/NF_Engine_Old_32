@@ -35,7 +35,18 @@ class SUtil
 		if (aDir != null && aDir.length > 0)
 			return aDir;
 		else
+		if (ClientPrefs.StorageType == 'NF Engine') {
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		}
+		if (ClientPrefs.StorageType == 'Psych Engine') {
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'PsychEngine' + '/';
+		}
+		if (ClientPrefs.StorageType == 'NovaFlare Engine') {
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'NovaFlare Engine' + '/';
+		}
+		if (ClientPrefs.StorageType == 'Codename Engine') {
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'CodenameEngine' + '/';
+		}
 		#else
 		return '';
 		#end

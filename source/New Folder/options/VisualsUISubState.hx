@@ -57,121 +57,122 @@ typedef NoteSkinData =
 */
 
 
-class TweaksSubState extends BaseOptionsMenu
+class VisualsUISubState extends BaseOptionsMenu
 {
 
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
-		title = 'NF Engine Tweaks Menu';
-		rpcTitle = 'KralOyuncu & NF Engine Tweaks Menu'; //for Discord Rich Presence
+		title = 'Visuals and UI';
+		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
         noteSkinList.unshift('original');
         
-		var option:Option = new Option('HUD Type:',
-			"Which HUD would you like?",
-			'hudType',
-			'string',
-			'Psych Engine',
-			['VS Impostor', 'Kade Engine', 'Dave & Bambi', 'Psych Engine']);
-		addOption(option);
-		
-		
-		var option:Option = new Option('Note Skin',
-			"Choose Note Skin",
-			'NoteSkin',
-			'string',
-			'original',
-			noteSkinList);
-			
-		option.showNote = true;
-		addOption(option);
-		option.onChange = onChangeNoteSkin;
-		
-		var option:Option = new Option('Note Splash Type:',
-			"Which note splash would you like?",
-			'splashType',
-			'string',
-			'Psych Engine',
-			['Psych Engine', 'VS Impostor', 'Base Game', 'Doki Doki+', 'TGT V4', 'Indie Cross']);
-		addOption(option);
-		
-		
-		var option:Option = new Option('Storage Type:',
-			"Which Storage Type would you like?",
-			'StorageType',
-			'string',
-			'NF Engine',
-			['NF Engine', 'Psych Engine', 'NovaFlare Engine', 'Codename Engine']);
-		addOption(option);
-		
-		
-		var option:Option = new Option('Spammable Inputs',
-			'If chacked the input system is more spammable',
-			'ezSpam',
+		var option:Option = new Option('Note Splashes',
+			"If unchecked, hitting \"Sick!\" notes won't show particles.",
+			'noteSplashes',
 			'bool',
 			true);
 		addOption(option);
 		
-		var option:Option = new Option('GradientColor TimeBar ',
-			"If chacked timebar will have gradient color\nbut maybe will have bug when you change timebar color again",
-			'gradientTimeBar',
-			'bool',
-			true);
-		addOption(option);
-		
-		/*
-		var option:Option = new Option('Enable Extra Menu Buttons',
-			"Credits & Mods",
-			'extramenu',
-			'bool',
-			false);
-		addOption(option);
-		*/
-		
-		var option:Option = new Option('Better Middlescroll',
-			"If chacked your notes and the opponent's notes get centered",
-			'betterMidScroll',
+		var option:Option = new Option('Hide HUD',
+			'If checked, hides most HUD elements.',
+			'hideHud',
 			'bool',
 			false);
 		addOption(option);
 		
-		var option:Option = new Option('Opponent Note Transparency: ',
-			"How visible do you want the opponent's notes to be when Middlescroll is enabled? \n(0% = invisible, 100% = fully visible)",
-			'oppNoteAlpha',
-			'percent',
-			0.65);
-		option.scrollSpeed = 1.8;
-		option.minValue = 0.0;
-		option.maxValue = 1;
-		option.changeValue = 0.01;
-		option.decimals = 2;
+		var option:Option = new Option('Time Bar:',
+			"What should the Time Bar display?",
+			'timeBarType',
+			'string',
+			'Time Left',
+			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
-		
-		var option:Option = new Option('Light Opponent Strums',
-			"If this is unchecked, the Opponent strums won't light up when the Opponent hits a note",
-			'opponentLightStrum',
+
+		var option:Option = new Option('Flashing Lights',
+			"Uncheck this if you're sensitive to flashing lights!",
+			'flashing',
 			'bool',
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Light Botplay Strums',
-			"If this is unchecked, the Player strums won't light when Botplay is active",
-			'botLightStrum',
+		var option:Option = new Option('Camera Zooms',
+			"If unchecked, the camera won't zoom in on a beat hit.",
+			'camZooms',
+			'bool',
+			true);
+		addOption(option);
+        /*
+		var option:Option = new Option('NPS Display',
+			"Show your current Note Per Second on the info bar.",
+			'NPSshowcase',
+			'bool',
+			true);
+		addOption(option);
+        */
+		var option:Option = new Option('Health Bar Transparency',
+			'How much transparent should the health bar and icons be.',
+			'healthBarAlpha',
+			'percent',
+			1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 0.0;
+		option.maxValue = 1;
+		option.changeValue = 0.1;
+		option.decimals = 1;
+		addOption(option);
+		
+		var option:Option = new Option('FPS Counter',
+			'If unchecked, hides FPS Counter.',
+			'showFPS',
+			'bool',
+			true);
+		addOption(option);
+		option.onChange = onChangeFPSCounter;
+		
+		var option:Option = new Option('FPS Rainbow',
+			'If unchecked, FPS not change color',
+			'rainbowFPS',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Pause Screen Song:',
+			"What song do you prefer for the Pause Screen?",
+			'pauseMusic',
+			'string',
+			'Tea Time',
+			['None', 'Breakfast', 'Tea Time']);
+		addOption(option);
+		option.onChange = onChangePauseMusic;
+		
+		#if CHECK_FOR_UPDATES
+		var option:Option = new Option('Check for Updates',
+			'On Release builds, turn this on to check for updates when you start the game.',
+			'checkForUpdates',
+			'bool',
+			true);
+		addOption(option);
+		#end
+
+		var option:Option = new Option('Combo Stacking',
+			"If unchecked, Ratings and Combo won't stack, saving on System Memory and making them easier to read",
+			'comboStacking',
 			'bool',
 			true);
 		addOption(option);
 		
-		var option:Option = new Option('Automatic Note Spawn Time', //Name
-			"If checked, the Notes' spawn time will instead depend on the scroll speed. \nUseful if you don't want notes just spawning out of thin air. \nNOTE: Disable this if you use Lua Extra Keys!!", //Description
-			'dynamicSpawnTime', //Save data variable name
-			'bool', //Variable type
-			true); //Default value
+		var option:Option = new Option('Show Combo Num',
+			"If unchecked, Combo Num won't showcase, saving on System Memory and making them easier to read",
+			'showComboNum',
+			'bool',
+			true);
 		addOption(option);
 		
-		var option:Option = new Option('Fix Opponent Play Mechanics',
-			'Just Mechanics Bro',
-			'fixopponentplay',
+		var option:Option = new Option('Show Rating',
+			"If unchecked, Rating won't showcase, saving on System Memory and making them easier to read",
+			'showRating',
 			'bool',
 			true);
 		addOption(option);

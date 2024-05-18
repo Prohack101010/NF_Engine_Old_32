@@ -96,16 +96,6 @@ class TweaksSubState extends BaseOptionsMenu
 			['Psych Engine', 'VS Impostor', 'Base Game', 'Doki Doki+', 'TGT V4', 'Indie Cross']);
 		addOption(option);
 		
-		
-		var option:Option = new Option('Storage Type:',
-			"Which Storage Type would you like?",
-			'StorageType',
-			'string',
-			'NF Engine',
-			['NF Engine', 'Psych Engine', 'NovaFlare Engine', 'Codename Engine']);
-		addOption(option);
-		
-		
 		var option:Option = new Option('Spammable Inputs',
 			'If chacked the input system is more spammable',
 			'ezSpam',

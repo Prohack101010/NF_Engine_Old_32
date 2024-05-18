@@ -30,7 +30,6 @@ class ClientPrefs {
 	public static var vibration:Bool = false;
 	public static var ghostTapping:Bool = true;
 	public static var hudType:String = 'Kade Engine';
-	public static var StorageType:String = 'NF Engine';
 	public static var splashType:String = 'Psych Engine';
 	public static var timeBarType:String = 'Time Left';
 	public static var opponentLightStrum:Bool = true;
@@ -204,7 +203,6 @@ class ClientPrefs {
 		FlxG.save.data.opponentLightStrum = opponentLightStrum;
 		FlxG.save.data.oppNoteAlpha = oppNoteAlpha;
 	    FlxG.save.data.hudType = hudType;
-	    FlxG.save.data.StorageType = StorageType;
 	    FlxG.save.data.fixopponentplay = fixopponentplay;
 	    FlxG.save.data.ezSpam = ezSpam;
 	    //FlxG.save.data.extramenu = extramenu;
@@ -374,9 +372,6 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hudType != null) {
 			hudType = FlxG.save.data.hudType;
-		}
-		if(FlxG.save.data.StorageType != null) {
-			StorageType = FlxG.save.data.StorageType;
 		}
 		if(FlxG.save.data.fixopponentplay != null) {
 			fixopponentplay = FlxG.save.data.fixopponentplay;
