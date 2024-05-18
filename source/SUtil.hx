@@ -39,15 +39,15 @@ class SUtil
     	{
     	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     	}
-    	elseif (ClientPrefs.StorageType == 'Psych Engine')
+    	if (ClientPrefs.StorageType == 'Psych Engine')
     	{
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
     	}
-    	elseif (ClientPrefs.StorageType == 'NovaFlare Engine')
+    	if (ClientPrefs.StorageType == 'NovaFlare Engine')
     	{
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
     	}
-    	elseif (ClientPrefs.StorageType == 'Codename Engine')
+    	if (ClientPrefs.StorageType == 'Codename Engine')
     	{
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
     	}
