@@ -36,20 +36,22 @@ class SUtil
 			return aDir;
 		}
 		else
-		{
-    		switch (ClientPrefs.StorageType)
+    	{
+            if (ClientPrefs.StorageType == 'NF Engine')
     		{
-        		case 'NF Engine':
-        			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-        
-        		case 'Psych Engine':
-        			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
-        
-        		case 'NovaFlare Engine':
-        			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
-        
-        		case 'Codename Engine':
-        			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
+    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+    		}
+    		elseif (ClientPrefs.StorageType == 'Psych Engine')
+    		{
+    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+    		}
+    		elseif (ClientPrefs.StorageType == 'NovaFlare Engine')
+    		{
+    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+    		}
+    		elseif (ClientPrefs.StorageType == 'Codename Engine')
+    		{
+    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
     		}
     		else
     		{
