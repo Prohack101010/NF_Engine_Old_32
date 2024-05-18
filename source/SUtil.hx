@@ -42,13 +42,17 @@ class SUtil
             return aDir3;
         else
         if (ClientPrefs.StorageType == 'NovaFlare Engine')
+            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+            return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
     		return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
+		    return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
     		return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
+            return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+            return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
-        else
-            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
