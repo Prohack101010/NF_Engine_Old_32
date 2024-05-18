@@ -34,14 +34,23 @@ class SUtil
 		#if android
 		if (aDir != null && aDir.length > 0) {
 			return aDir;
+		}
+		elseif (ClientPrefs.StorageType == 'NF Engine')
+		{
+		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		}
 		elseif (ClientPrefs.StorageType == 'Psych Engine')
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'PsychEngine' + '/';
+		{
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+		}
 		elseif (ClientPrefs.StorageType == 'NovaFlare Engine')
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'NovaFlare Engine' + '/';
+		{
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+		}
 		elseif (ClientPrefs.StorageType == 'Codename Engine')
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'CodenameEngine' + '/';
-		else
-		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		{
+			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
+		}
 		#else
 		return '';
 		#end
