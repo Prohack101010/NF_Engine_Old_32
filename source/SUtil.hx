@@ -27,8 +27,6 @@ class SUtil
 {
 	#if android
 	private static var aDir:String = null; // NF Engine dir
-	private static var psychDir:String = null; // PsychEngine dir
-	private static var novaDir:String = null; // NovaFlare Engine dir
 	#end
 
 	public static function getPath():String
@@ -38,22 +36,19 @@ class SUtil
     		if (aDir != null && aDir.length > 0)
     		    return aDir;
     		else
-    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('new') + '/';
+    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
     		if (aDir != null && aDir.length > 0)
     		    return aDir;
     		else
-    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('psych') + '/';
+    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
     		if (aDir != null && aDir.length > 0)
     			return aDir;
     		else
     			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
         else
-            if (aDir != null && aDir.length > 0)
-    			return aDir;
-    		else
-    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
