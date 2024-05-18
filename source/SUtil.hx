@@ -32,7 +32,7 @@ class SUtil
 	public static function getPath():String
 	{
 		#if android
-		if (aDir != null && aDir.length > 0)
+		if (aDir != null && aDir.length > 0) {
 			return aDir;
 		}
 		if (ClientPrefs.StorageType == 'Psych Engine') {
@@ -43,8 +43,11 @@ class SUtil
 		}
 		if (ClientPrefs.StorageType == 'Codename Engine') {
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + 'CodenameEngine' + '/';
+		}
 		else
+		{
 		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		}
 		#else
 		return '';
 		#end
