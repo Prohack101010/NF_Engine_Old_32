@@ -36,13 +36,13 @@ class SUtil
 		#if android
 		if (ClientPrefs.StorageType == 'NovaFlare Engine' && novaDir != null && novaDir.length > 0)
 		    return novaDir;
-		elseif (ClientPrefs.StorageType == 'NovaFlare Engine' && !novaDir != null && !novaDir.length > 0)
+		if (ClientPrefs.StorageType == 'NovaFlare Engine' && !novaDir != null && !novaDir.length > 0)
 		    return novaDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
-		elseif (ClientPrefs.StorageType == 'Psych Engine' && psychDir != null && psychDir.length > 0)
+		if (ClientPrefs.StorageType == 'Psych Engine' && psychDir != null && psychDir.length > 0)
 		    return psychDir;
-		elseif (ClientPrefs.StorageType == 'Psych Engine' && !psychDir != null && !psychDir.length > 0)
+		if (ClientPrefs.StorageType == 'Psych Engine' && !psychDir != null && !psychDir.length > 0)
 		    return psychDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
-		elseif (ClientPrefs.StorageType == 'NF Engine' && aDir != null && aDir.length > 0)
+		if (ClientPrefs.StorageType == 'NF Engine' && aDir != null && aDir.length > 0)
 			return aDir;
 		else
 			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
