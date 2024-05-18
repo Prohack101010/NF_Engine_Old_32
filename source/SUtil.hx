@@ -34,18 +34,21 @@ class SUtil
 	public static function getPath():String
 	{
 		#if android
-		if (ClientPrefs.StorageType == 'NovaFlare Engine' && novaDir != null && novaDir.length > 0)
-		    return novaDir;
-		if (ClientPrefs.StorageType == 'NovaFlare Engine' && !novaDir != null && !novaDir.length > 0)
-		    return novaDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
-		if (ClientPrefs.StorageType == 'Psych Engine' && psychDir != null && psychDir.length > 0)
-		    return psychDir;
-		if (ClientPrefs.StorageType == 'Psych Engine' && !psychDir != null && !psychDir.length > 0)
-		    return psychDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
-		if (ClientPrefs.StorageType == 'NF Engine' && aDir != null && aDir.length > 0)
-			return aDir;
-		else
-			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+		if (ClientPrefs.StorageType == 'NovaFlare Engine')
+    		if (novaDir != null && novaDir.length > 0)
+    		    return novaDir;
+    		else
+    		    return novaDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+		if (ClientPrefs.StorageType == 'Psych Engine')
+    		if (psychDir != null && psychDir.length > 0)
+    		    return psychDir;
+    		else
+    		    return psychDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+        if (ClientPrefs.StorageType == 'NF Engine')
+    		if (aDir != null && aDir.length > 0)
+    			return aDir;
+    		else
+    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
