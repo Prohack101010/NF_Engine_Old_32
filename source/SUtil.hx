@@ -47,7 +47,8 @@ class SUtil
     	if (ClientPrefs.StorageType == 'Codename Engine') {
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file3') + '/';
     	}
-    	else {
+    	else
+    	{
     	    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
     	}
 		#else
