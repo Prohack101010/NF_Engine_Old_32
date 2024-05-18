@@ -35,22 +35,25 @@ class SUtil
 	{
 		#if android
 		if (ClientPrefs.StorageType == 'NovaFlare Engine')
-    		if (novaDir != null && novaDir.length > 0)
-    		    return novaDir;
+    		if (aDir != null && aDir.length > 0)
+    		    return aDir;
     		else
-    		    return novaDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('new') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
-    		if (psychDir != null && psychDir.length > 0)
-    		    return psychDir;
+    		if (aDir != null && aDir.length > 0)
+    		    return aDir;
     		else
-    		    return psychDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+    		    return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('psych') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
     		if (aDir != null && aDir.length > 0)
     			return aDir;
     		else
     			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
         else
-            return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
+            if (aDir != null && aDir.length > 0)
+    			return aDir;
+    		else
+    			return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
 		#else
 		return '';
 		#end
