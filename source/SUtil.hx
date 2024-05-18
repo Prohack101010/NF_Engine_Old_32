@@ -27,6 +27,8 @@ class SUtil
 {
 	#if android
 	private static var aDir:String = null; // NF Engine dir
+	private static var aDir2:String = null; // NF Engine dir
+	private static var aDir3:String = null; // NF Engine dir
 	#end
 
 	public static function getPath():String
@@ -34,11 +36,15 @@ class SUtil
 		#if android
 		if (aDir != null && aDir.length > 0)
             return aDir;
+        if (aDir2 != null && aDir2.length > 0)
+            return aDir2;
+        if (aDir3 != null && aDir3.length > 0)
+            return aDir3;
         else
         if (ClientPrefs.StorageType == 'NovaFlare Engine')
-    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
+    		return aDir3 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file2') + '/';
 		if (ClientPrefs.StorageType == 'Psych Engine')
-    		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
+    		return aDir2 = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file1') + '/';
         if (ClientPrefs.StorageType == 'NF Engine')
     		return aDir = Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file') + '/';
         else
