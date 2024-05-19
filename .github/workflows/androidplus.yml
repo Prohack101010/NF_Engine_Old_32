@@ -1,4 +1,4 @@
-name: Android
+name: AndroidPlus
 on:
   push:
     branches: [ main ]
@@ -6,40 +6,34 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  buildAndroid:
-    name: buildAndroid
+  Build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         storage-type: [EXTERNAL, OBB, DATA, MEDIA]
+    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@main
-
-      - name: Setup Android NDK
-        id: setup-ndk
-        uses: nttld/setup-ndk@main
-        with:
-          ndk-version: r21e
 
       - name: Setup Java JDK
         uses: actions/setup-java@main
         with:
           distribution: 'temurin'
-          java-version: 11
+          java-version: '11'
 
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v1.2.0
         with:
           haxe-version: 4.2.0
 
-      - name: Install Haxelib
+      - name: Install Libraries
         run: |
           haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
-      - name: Setup Lime
+      - name: Configure Android
         run: |
           haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -51,16 +45,14 @@ jobs:
           haxelib set flixel 4.11.0
           haxelib set flixel-addons 2.11.0
           haxelib set hxcpp 4.2.1
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }}"
-        
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} -final
+
       - name: Upload Artifact
         if: ${{ success() }}
         uses: actions/upload-artifact@main
         with:
           name: androidBuild-${{ matrix.storage-type }}
-          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
-          if-no-files-found: warn
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
