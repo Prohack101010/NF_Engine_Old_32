@@ -6,8 +6,8 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  32Bit-build:
-    name: 32Bit-build
+  32bit-buildAndroid:
+    name: 32bit-buildAndroid
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -57,7 +57,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -armv7 -final"
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS --app-version="4.0.0-${{ github.run_id}} -armv7 -final"
         
       - name: Upload Artifact
         if: ${{ success() }}
@@ -66,8 +66,8 @@ jobs:
           name: androidBuild-${{ matrix.storage-type }}
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
-  64Bit-build:
-    name: 64Bit-build
+  64bit-buildAndroid:
+    name: 64bit-buildAndroid
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -117,7 +117,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -arm64 -final"
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS --app-version="4.0.0-${{ github.run_id}} -arm64 -final"
         
       - name: Upload Artifact
         if: ${{ success() }}
