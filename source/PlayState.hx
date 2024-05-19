@@ -900,7 +900,7 @@ class PlayState extends MusicBeatState
 		// "GLOBAL" SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('scripts/')];
+		var foldersToCheck:Array<String> = [SUtil.getStorageDirectory() + Paths.getPreloadPath('scripts/')];
 
 		#if MODS_ALLOWED
 		foldersToCheck.insert(0, Paths.mods('scripts/'));
@@ -1024,12 +1024,12 @@ class PlayState extends MusicBeatState
 
 		var file:String = Paths.json(songName + '/dialogue'); //Checks for json/Psych Engine dialogue
 		if (OpenFlAssets.exists(file)) {
-			dialogueJson = DialogueBoxPsych.parseDialogue(Path.addTrailingSlash(SUtil.getStorageDirectory()) + file);
+			dialogueJson = DialogueBoxPsych.parseDialogue(SUtil.getStorageDirectory() + file);
 		}
 
 		var file:String = Paths.txt(songName + '/' + songName + 'Dialogue'); //Checks for vanilla/Senpai dialogue
 		if (OpenFlAssets.exists(file)) {
-			dialogue = CoolUtil.coolTextFile(Path.addTrailingSlash(SUtil.getStorageDirectory()) + file);
+			dialogue = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + file);
 		}
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
@@ -1206,7 +1206,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				luaToLoad = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
+				luaToLoad = SUtil.getStorageDirectory() + Paths.getPreloadPath('custom_notetypes/' + notetype + '.lua');
 				if(FileSystem.exists(luaToLoad))
 				{
 					luaArray.push(new FunkinLua(luaToLoad));
@@ -1222,7 +1222,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				luaToLoad = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('custom_events/' + event + '.lua');
+				luaToLoad = SUtil.getStorageDirectory() + Paths.getPreloadPath('custom_events/' + event + '.lua');
 				if(FileSystem.exists(luaToLoad))
 				{
 					luaArray.push(new FunkinLua(luaToLoad));
@@ -1444,7 +1444,7 @@ class PlayState extends MusicBeatState
 		// SONG SPECIFIC SCRIPTS
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
-		var foldersToCheck:Array<String> = [Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
+		var foldersToCheck:Array<String> = [SUtil.getStorageDirectory() + Paths.getPreloadPath('data/' + Paths.formatToSongPath(SONG.song) + '/')];
 
 		#if MODS_ALLOWED
 		foldersToCheck.insert(0, Paths.mods('data/' + Paths.formatToSongPath(SONG.song) + '/'));
@@ -1631,7 +1631,7 @@ class PlayState extends MusicBeatState
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('shaders/')];
+		var foldersToCheck:Array<String> = [SUtil.getStorageDirectory() + Paths.getPreloadPath('shaders/')];
 
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 
@@ -1771,7 +1771,7 @@ class PlayState extends MusicBeatState
 			luaFile = Paths.modFolders(luaFile);
 			doPush = true;
 		} else {
-			luaFile = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(luaFile);
+			luaFile = SUtil.getStorageDirectory() + Paths.getPreloadPath(luaFile);
 			if(FileSystem.exists(luaFile)) {
 				doPush = true;
 			}
@@ -2697,7 +2697,7 @@ class PlayState extends MusicBeatState
 		var songName:String = Paths.formatToSongPath(SONG.song);
 		var file:String = Paths.json(songName + '/events');
 		#if MODS_ALLOWED
-		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(Path.addTrailingSlash(SUtil.getStorageDirectory()) + file)) {
+		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(SUtil.getStorageDirectory() + file)) {
 		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
