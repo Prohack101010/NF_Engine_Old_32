@@ -66,7 +66,7 @@ class TweaksSubState extends BaseOptionsMenu
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
 	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
-	final lastStorageType:String = ClientPrefs.data.storageType;
+	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
@@ -177,12 +177,12 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		#if android
-		option = new Option('Storage Type',
-			'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)',
+		var option:Option = new Option('Storage Type:',
+			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
 			'storageType',
-			STRING,
+			'string',
 			storageTypes);
-			addOption(option);
+		    addOption(option);
 		#end
 
 		super();
@@ -190,7 +190,7 @@ class TweaksSubState extends BaseOptionsMenu
 	
 	function onStorageChange():Void
 	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.data.storageType);
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
 		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
 
@@ -206,7 +206,7 @@ class TweaksSubState extends BaseOptionsMenu
 		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		super.destroy();
 		#if android
-		if (ClientPrefs.data.storageType != lastStorageType) {
+		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
 			System.exit(0);
 		}
