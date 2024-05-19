@@ -65,7 +65,6 @@ class TweaksSubState extends BaseOptionsMenu
 {
     #if android
 	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
-	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 
@@ -73,7 +72,6 @@ class TweaksSubState extends BaseOptionsMenu
         
 	public function new()
 	{
-	    storageTypes = storageTypes.concat(externalPaths);
 		title = 'NF Engine Tweaks Menu';
 		rpcTitle = 'KralOyuncu & NF Engine Tweaks Menu'; //for Discord Rich Presence
         noteSkinList.unshift('original');
@@ -192,7 +190,7 @@ class TweaksSubState extends BaseOptionsMenu
 	{
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
-		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
+		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
 
 		try
 		{
