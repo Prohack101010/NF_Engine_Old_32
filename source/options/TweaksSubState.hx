@@ -200,7 +200,7 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
-			FlxG.resetGame()
+			FlxG.resetGame();
 		}
 		#end
 	}
