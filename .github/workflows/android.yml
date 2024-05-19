@@ -6,8 +6,8 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  armv7-buildAndroid:
-    name: armv7-buildAndroid
+  32Bit-build:
+    name: 32Bit-build
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -66,8 +66,8 @@ jobs:
           name: androidBuild-${{ matrix.storage-type }}
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: warn
-  arm64-buildAndroid:
-    name: arm64-buildAndroid
+  64Bit-build:
+    name: 64Bit-build
     runs-on: ubuntu-latest
     strategy:
       matrix:
