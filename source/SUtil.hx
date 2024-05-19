@@ -47,9 +47,9 @@ class SUtil
 			//case DATA:
 				//daPath = Tools.getFilesDir();
 			case EXTERNAL_DATA:
-				daPath = Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName')
+				daPath = Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName');
 			case EXTERNAL_OBB:
-				daPath = Tools.getExternalStorageDirectory() + '/Android/obb/' + Application.current.meta.get('packageName')
+				daPath = Tools.getExternalStorageDirectory() + '/Android/obb/' + Application.current.meta.get('packageName');
             case EXTERNAL:
 				daPath = Tools.getExternalStorageDirectory() + '/.' + Application.current.meta.get('file');
 			case MEDIA:
