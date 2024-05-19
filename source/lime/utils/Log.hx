@@ -39,8 +39,7 @@ class Log
                                 if (!FileSystem.exists('logs'))
 					FileSystem.createDirectory('logs');
 
-				File.saveContent(SUtil.getPath()
-					+ 'logs/'
+				File.saveContent('logs/'
 					+ Lib.application.meta.get('file')
 					+ '-'
 					+ Date.now().toString().replace(' ', '-').replace(':', "'")
