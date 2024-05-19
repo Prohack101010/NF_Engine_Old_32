@@ -20,16 +20,20 @@ import flash.system.System;
  * ...
  * @author: Saw (M.A. Jigsaw)
  */
+ 
+ /*
+ KralOyuncu was here
+*/
 
 using StringTools;
 
 enum StorageType
 {
 	//DATA;
-        EXTERNAL;
+    EXTERNAL;
 	EXTERNAL_DATA;
 	EXTERNAL_OBB;
-        MEDIA;
+    MEDIA;
 }
 
 class SUtil
@@ -47,13 +51,13 @@ class SUtil
 			//case DATA:
 				//daPath = Tools.getFilesDir();
 			case EXTERNAL_DATA:
-				daPath = Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName');
+				daPath = Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/';
 			case EXTERNAL_OBB:
-				daPath = Tools.getExternalStorageDirectory() + '/Android/obb/' + Application.current.meta.get('packageName');
+				daPath = Tools.getExternalStorageDirectory() + '/Android/obb/' + Application.current.meta.get('packageName') + '/';
             case EXTERNAL:
-				daPath = Tools.getExternalStorageDirectory() + '/.' + Application.current.meta.get('file');
+				daPath = Tools.getExternalStorageDirectory() + '/.' + Application.current.meta.get('file') + '/';
 			case MEDIA:
-				daPath = Tools.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
+				daPath = Tools.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName') + '/';
 		}
 		#elseif ios
 		daPath = LimeSystem.documentsDirectory;
