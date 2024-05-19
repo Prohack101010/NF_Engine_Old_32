@@ -208,7 +208,7 @@ enum abstract StorageType(String) from String to String
 	{
 		//final EXTERNAL_DATA = Tools.getExternalStorageDirectory() + '/Android/data/' + lime.app.Application.current.meta.get('packageName');
 		//final PSYCH ENGINE = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file3');
-		final NOVA FLARE = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file2');
+		final NOVA FLARE = Tools.getExternalStorageDirectory() + '/.' + fileLocal2;
 		final NF ENGINE = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 
 		return switch (str)
