@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         storage-type: [EXTERNAL, OBB, DATA, MEDIA]
-    permissions: write-all
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -38,6 +37,8 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
+      - name: Create Version Tag
+        run: echo "${{github.run_id}}" > VERSION
 
       - name: Configure Android
         run: |
@@ -51,9 +52,11 @@ jobs:
           haxelib set flixel 4.11.0
           haxelib set flixel-addons 2.11.0
           haxelib set hxcpp 4.2.1
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -final
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS --app-version="4.0.0-${{ github.run_id}}" -armv7 -final
 
       - name: Upload Artifact
         if: ${{ success() }}
