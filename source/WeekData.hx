@@ -3,6 +3,7 @@ package;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
+import haxe.io.Path;
 #end
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;

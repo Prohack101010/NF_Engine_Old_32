@@ -3,6 +3,7 @@ package options;
 #if desktop
 import Discord.DiscordClient;
 #end
+import haxe.io.Path;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;

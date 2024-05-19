@@ -3,6 +3,7 @@ package;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
+import haxe.io.Path;
 #end
 
 import FunkinLua

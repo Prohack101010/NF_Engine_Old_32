@@ -26,6 +26,7 @@ import flixel.graphics.FlxGraphic;
 import haxe.Json;
 import haxe.format.JsonParser;
 import Controls;
+import haxe.io.Path;
 
 using StringTools;
 

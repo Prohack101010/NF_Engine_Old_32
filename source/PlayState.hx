@@ -61,6 +61,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
+import haxe.io.Path;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;

@@ -4,6 +4,7 @@ import Section.SwagSection;
 import haxe.Json;
 import haxe.format.JsonParser;
 import lime.utils.Assets;
+import haxe.io.Path;
 
 #if sys
 import sys.io.File;

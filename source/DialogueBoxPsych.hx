@@ -1,5 +1,6 @@
 package;
 
+import haxe.io.Path;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;

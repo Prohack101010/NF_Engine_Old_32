@@ -13,6 +13,7 @@ import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.utils.Assets;
 import flixel.FlxSprite;
+import haxe.io.Path;
 #if sys
 import sys.io.File;
 import sys.FileSystem;

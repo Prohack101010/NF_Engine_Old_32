@@ -3,6 +3,7 @@ package;
 #if desktop
 import sys.thread.Thread;
 #end
+import haxe.io.Path;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
