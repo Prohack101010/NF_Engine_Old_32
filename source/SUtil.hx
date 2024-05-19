@@ -200,39 +200,41 @@ enum abstract StorageType(String) from String to String
 	final forcedPath = '/storage/emulated/0/';
 	final packageNameLocal = 'com.NFengine063test';
 	final fileLocal = 'NF Engine';
+	final fileLocal2 = 'NovaFlare Engine';
+	final fileLocal3 = 'PsychEngine';
 	//Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/'
 
 	public static function fromStr(str:String):StorageType
 	{
 		//final EXTERNAL_DATA = Tools.getExternalStorageDirectory() + '/Android/data/' + lime.app.Application.current.meta.get('packageName');
-		//final EXTERNAL_OBB = Tools.getExternalStorageDirectory() + '/Android/obb/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL_MEDIA = Tools.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+		final PSYCH ENGINE = Tools.getExternalStorageDirectory() + '/.PsychEngine';
+		final NOVA FLARE = Tools.getExternalStorageDirectory() + '/.NovaFlare Engine';
+		final NF ENGINE = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 
 		return switch (str)
 		{
 			//case "EXTERNAL_DATA": EXTERNAL_DATA;
-			//case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: EXTERNAL;
+			case "PSYCH ENGINE": PSYCH ENGINE;
+			case "NOVA FLARE": NOVA FLARE;
+			case "NF ENGINE": NF ENGINE;
+			default: NF ENGINE;
 		}
 	}
 
 	public static function fromStrForce(str:String):StorageType
 	{
 		//final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
-		//final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;
-		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
-		final EXTERNAL = forcedPath + '.' + fileLocal;
+		final PSYCH ENGINE = forcedPath + '.' + fileLocal3;
+		final NOVA FLARE = forcedPath + '.' + fileLocal2;
+		final NF ENGINE = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
 			//case "EXTERNAL_DATA": EXTERNAL_DATA;
-			//case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: EXTERNAL;
+			case "PSYCH ENGINE": PSYCH ENGINE;
+			case "NOVA FLARE": NOVA FLARE;
+			case "NF ENGINE": NF ENGINE;
+			default: NF ENGINE;
 		}
 	}
 }

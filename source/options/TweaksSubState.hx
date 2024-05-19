@@ -179,8 +179,8 @@ class TweaksSubState extends BaseOptionsMenu
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
 			'storageType',
 			'string',
-			'EXTERNAL',
-			[/*'EXTERNAL_DATA', 'EXTERNAL_OBB', */'EXTERNAL_MEDIA', 'EXTERNAL']);
+			'SELECT',
+			['SELECT', 'NF ENGINE', 'NOVA FLARE', 'PSYCH ENGINE']);
 		addOption(option);
 		#end
 
@@ -192,13 +192,6 @@ class TweaksSubState extends BaseOptionsMenu
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
-
-		try
-		{
-			Sys.command('rm', ['-rf', lastStoragePath]);
-		}
-		catch (e:haxe.Exception)
-			trace('Failed to remove last directory. (${e.message})');
 	}
 	
 	override public function destroy() {
@@ -206,8 +199,8 @@ class TweaksSubState extends BaseOptionsMenu
 		super.destroy();
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
+		    Application.current.window.alert(Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!);
 		    onStorageChange();
-		    Application.current.window.alert('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 			System.exit(0);
 		}
 		#end
