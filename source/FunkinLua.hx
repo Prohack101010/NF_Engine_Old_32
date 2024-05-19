@@ -526,7 +526,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -579,7 +579,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -631,7 +631,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -669,7 +669,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -751,7 +751,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -791,7 +791,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -836,7 +836,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath(cervix);
+				cervix = SUtil.getStorageDirectory() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -2161,7 +2161,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getStorageDirectory() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 

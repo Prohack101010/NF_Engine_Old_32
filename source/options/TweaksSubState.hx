@@ -61,7 +61,7 @@ typedef NoteSkinData =
 class TweaksSubState extends BaseOptionsMenu
 {
 
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Path.addTrailingSlash(SUtil.getStorageDirectory()) + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
