@@ -30,6 +30,7 @@ import Controls;
 import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
+import lime.app.Application;
 
 using StringTools;
 
@@ -179,7 +180,7 @@ class TweaksSubState extends BaseOptionsMenu
 			'storageType',
 			'string',
 			'EXTERNAL',
-			['EXTERNAL_DATA', 'EXTERNAL_OBB', 'EXTERNAL_MEDIA', 'EXTERNAL']);
+			[/*'EXTERNAL_DATA', 'EXTERNAL_OBB', */'EXTERNAL_MEDIA', 'EXTERNAL']);
 		addOption(option);
 		#end
 
@@ -206,6 +207,7 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
+		    Application.current.window.alert(Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!);
 			System.exit(0);
 		}
 		#end
