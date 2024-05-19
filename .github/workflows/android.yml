@@ -57,7 +57,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -armv7 -final"
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS -armv7 -final"
         
       - name: Upload Artifact
         if: ${{ success() }}
@@ -117,7 +117,7 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -arm64 -final"
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS -arm64 -final"
         
       - name: Upload Artifact
         if: ${{ success() }}
