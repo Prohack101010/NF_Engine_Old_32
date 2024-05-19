@@ -207,7 +207,7 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
-		    Application.current.window.alert(Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!);
+		    Application.current.window.alert('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 			System.exit(0);
 		}
 		#end
