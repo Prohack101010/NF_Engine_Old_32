@@ -38,8 +38,6 @@ jobs:
           haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSION
 
       - name: Setup Lime
         run: |
@@ -57,12 +55,12 @@ jobs:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D ${{ matrix.storage-type }} -armv7 -final"
+        run: haxelib run lime build android -D ${{ matrix.storage-type }} NO_PRECOMPILED_HEADERS"
         
       - name: Upload Artifact
         if: ${{ success() }}
         uses: actions/upload-artifact@main
         with:
           name: androidBuild-${{ matrix.storage-type }}
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
           if-no-files-found: warn
