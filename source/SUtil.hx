@@ -5,6 +5,7 @@ import android.Tools;
 import android.Permissions;
 import android.PermissionsList;
 #end
+import lime.system.System as LimeSystem;
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
 import openfl.utils.Assets as OpenFlAssets;
@@ -171,7 +172,7 @@ class SUtil
 	}
 	
 	public static function checkExternalPaths(?splitStorage = false):Array<String> {
-		var process = new Process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
+		var process = new process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
 		var paths:String = process.stdout.readAll().toString();
 		if (splitStorage) paths = paths.replace('/storage/', '');
 		return paths.split(',');
@@ -233,7 +234,7 @@ enum abstract StorageType(String) from String to String
 		}
 	}
 
-	public static function fromStr(str:String):StorageType
+	public static function fromStrForce(str:String):StorageType
 	{
 		final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
 		final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;

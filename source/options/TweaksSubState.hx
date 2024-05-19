@@ -28,6 +28,8 @@ import haxe.Json;
 import haxe.format.JsonParser;
 import Controls;
 import haxe.io.Path;
+import sys.FileSystem;
+import sys.io.File;
 
 using StringTools;
 
@@ -201,11 +203,11 @@ class TweaksSubState extends BaseOptionsMenu
 	}
 	
 	override public function destroy() {
+		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
 		super.destroy();
 		#if android
 		if (ClientPrefs.data.storageType != lastStorageType) {
 		    onStorageChange();
-			SUtil.applicationAlert('', 'Notice!');
 			System.exit(0);
 		}
 		#end
@@ -223,12 +225,6 @@ class TweaksSubState extends BaseOptionsMenu
 			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
 
 		changedMusic = true;
-	}
-
-	override function destroy()
-	{
-		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		super.destroy();
 	}
 
 	function onChangeFPSCounter()
