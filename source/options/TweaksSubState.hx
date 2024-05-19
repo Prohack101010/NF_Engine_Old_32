@@ -64,7 +64,6 @@ typedef NoteSkinData =
 class TweaksSubState extends BaseOptionsMenu
 {
     #if android
-	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
 
@@ -177,10 +176,11 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		var option:Option = new Option('Storage Type:',
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
-			'storageType',
-			string,
-			storageTypes);
-		    addOption(option);
+			'splashType',
+			'string',
+			'EXTERNAL',
+			['EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL']);
+		addOption(option);
 		#end
 
 		super();
