@@ -1,4 +1,4 @@
-name: Android Storage Test
+name: Android Storage Test Build
 on:
   push:
     branches: [ main ]
@@ -6,7 +6,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 jobs:
-  32bit-Build:
+  Build32:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -66,7 +66,7 @@ jobs:
           name: androidBuild-${{ matrix.storage-type }}
           path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
-  64bit-Build:
+  Build64:
     runs-on: ubuntu-latest
     strategy:
       matrix:
