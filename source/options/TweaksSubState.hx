@@ -59,8 +59,6 @@ typedef NoteSkinData =
 
 class TweaksSubState extends BaseOptionsMenu
 {
-    final storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
-	final lastStorageType:String = ClientPrefs.data.storageType;
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
@@ -97,7 +95,7 @@ class TweaksSubState extends BaseOptionsMenu
 			['Psych Engine', 'VS Impostor', 'Base Game', 'Doki Doki+', 'TGT V4', 'Indie Cross']);
 		addOption(option);
 		
-		
+		/*
 		#if android
 		option = new Option('Storage Type',
 			'Whatever',
@@ -106,7 +104,7 @@ class TweaksSubState extends BaseOptionsMenu
 			storageTypes);
 			addOption(option);
 		#end
-		
+		*/	
 		
 		var option:Option = new Option('Spammable Inputs',
 			'If chacked the input system is more spammable',
@@ -179,16 +177,6 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 
 		super();
-	}
-	
-	public function onDestroy() {
-		super.destroy();
-		ClientPrefs.saveSettings();
-		ClientPrefs.loadPrefs();
-		if (ClientPrefs.data.storageType != lastStorageType) {
-			SUtil.applicationAlert('', 'Notice!');
-			System.exit(0);
-		}
 	}
 
 	var changedMusic:Bool = false;

@@ -9,6 +9,9 @@ jobs:
   buildAndroid:
     name: buildAndroid
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        storage-type: [EXTERNAL, OBB, DATA, EXTERNAL_MEDIA]
     steps:
       - name: Checkout
         uses: actions/checkout@main
