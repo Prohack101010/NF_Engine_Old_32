@@ -61,7 +61,7 @@ class TweaksSubState extends BaseOptionsMenu
 {
     final storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
 	final lastStorageType:String = ClientPrefs.data.storageType;
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{

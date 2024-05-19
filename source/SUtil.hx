@@ -101,7 +101,7 @@ class SUtil
 			if (!FileSystem.exists(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file')))
 				FileSystem.createDirectory(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file'));
 
-			if (!FileSystem.exists(SUtil.getPath() + 'assets') && !FileSystem.exists(SUtil.getPath() + 'mods'))
+			if (!FileSystem.exists('assets') && !FileSystem.exists('mods'))
 			{
 				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
 				CoolUtil.browserLoad('https://b23.tv/qnuSteM');
@@ -109,14 +109,14 @@ class SUtil
 			}
 			else
 			{
-				if (!FileSystem.exists(SUtil.getPath() + 'assets'))
+				if (!FileSystem.exists('assets'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
 					System.exit(0);
 				}
 
-				if (!FileSystem.exists(SUtil.getPath() + 'mods'))
+				if (!FileSystem.exists('mods'))
 				{
 					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
 					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
@@ -155,10 +155,10 @@ class SUtil
 
 		errMsg += e.error;
 
-		if (!FileSystem.exists(SUtil.getPath() + "crash"))
-		FileSystem.createDirectory(SUtil.getPath() + "crash");
+		if (!FileSystem.exists("crash"))
+		FileSystem.createDirectory("crash");
 
-		File.saveContent(SUtil.getPath() + path, errMsg + "\n");
+		File.saveContent(path, errMsg + "\n");
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
@@ -176,19 +176,19 @@ class SUtil
 	#if android
 	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
-		if (!FileSystem.exists(SUtil.getPath() + 'saves'))
-			FileSystem.createDirectory(SUtil.getPath() + 'saves');
+		if (!FileSystem.exists('saves'))
+			FileSystem.createDirectory('saves');
 
-		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
+		File.saveContent('saves/' + fileName + fileExtension, fileData);
 		SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
 	}
     
     public static function AutosaveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
-		if (!FileSystem.exists(SUtil.getPath() + 'saves'))
-			FileSystem.createDirectory(SUtil.getPath() + 'saves');
+		if (!FileSystem.exists('saves'))
+			FileSystem.createDirectory('saves');
 
-		File.saveContent(SUtil.getPath() + 'saves/' + fileName + fileExtension, fileData);
+		File.saveContent('saves/' + fileName + fileExtension, fileData);
 		//SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
 	}
 	

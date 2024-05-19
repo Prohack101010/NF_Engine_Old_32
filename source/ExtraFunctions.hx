@@ -258,13 +258,13 @@ class ExtraFunctions
                     }
                 }
                 if(!absolute){
-    				if (!FileSystem.exists(SUtil.getPath() + 'mods/' + filesCheck)){
-    			        FileSystem.createDirectory(SUtil.getPath() + 'mods/' + filesCheck);
+    				if (!FileSystem.exists('mods/' + filesCheck)){
+    			        FileSystem.createDirectory('mods/' + filesCheck);
     			    }
 			    }
 			    else{
-			        if (!FileSystem.exists(SUtil.getPath() + filesCheck)){
-    			        FileSystem.createDirectory(SUtil.getPath() + filesCheck);
+			        if (!FileSystem.exists(filesCheck)){
+    			        FileSystem.createDirectory(filesCheck);
     			    }
 			    }
 			    
@@ -272,7 +272,7 @@ class ExtraFunctions
 					File.saveContent(Paths.mods(path), content);
 				else
 				#end
-					File.saveContent(SUtil.getPath() + path, content);
+					File.saveContent(path, content);
 
 				return true;
 			} catch (e:Dynamic) {
