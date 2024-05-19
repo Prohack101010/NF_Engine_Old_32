@@ -58,10 +58,11 @@ jobs:
 
       - name: Compile
         run: haxelib run lime build android -D NO_PRECOMPILED_HEADERS --app-version="4.0.0-${{ github.run_id}}"
-
+        
       - name: Upload Artifact
+        if: ${{ success() }}
         uses: actions/upload-artifact@main
         with:
-          name: androidBuild
-          path: export/release/android/bin/app/build/outputs/apk/debug
+          name: androidBuild-${{ matrix.storage-type }}
+          path: export/release/android/bin/app/build/outputs/apk/debug/*.apk
           if-no-files-found: warn
