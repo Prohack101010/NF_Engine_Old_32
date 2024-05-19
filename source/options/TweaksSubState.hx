@@ -59,7 +59,8 @@ typedef NoteSkinData =
 
 class TweaksSubState extends BaseOptionsMenu
 {
-
+    final storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
+	final lastStorageType:String = ClientPrefs.data.storageType;
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
@@ -97,13 +98,14 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		
-		var option:Option = new Option('Storage Type:',
-			"Which Storage Type would you like?",
-			'StorageType',
-			'string',
-			'NF Engine',
-			['NF Engine', 'Psych Engine', 'NovaFlare Engine']);
-		addOption(option);
+		#if android
+		option = new Option('Storage Type',
+			'Whatever',
+			'storageType',
+			STRING,
+			storageTypes);
+			addOption(option);
+		#end
 		
 		
 		var option:Option = new Option('Spammable Inputs',
@@ -177,6 +179,16 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 
 		super();
+	}
+	
+	public function onDestroy() {
+		super.destroy();
+		ClientPrefs.saveSettings();
+		ClientPrefs.loadPrefs();
+		if (ClientPrefs.data.storageType != lastStorageType) {
+			SUtil.applicationAlert('', 'Notice!');
+			System.exit(0);
+		}
 	}
 
 	var changedMusic:Bool = false;

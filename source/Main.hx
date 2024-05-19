@@ -52,6 +52,11 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+		
+        #if mobile
+		var path = #if android Path.addTrailingSlash(SUtil.getStorageDirectory()) #else SUtil.getStorageDirectory() #end;
+		Sys.setCwd(path);
+		#end
 
     SUtil.gameCrashCheck();
 		if (stage != null)
