@@ -180,7 +180,7 @@ class TweaksSubState extends BaseOptionsMenu
 			'storageType',
 			'string',
 			'SELECT',
-			['SELECT', 'NF ENGINE', 'NOVA FLARE', 'PSYCH ENGINE']);
+			['SELECT', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
 		addOption(option);
 		#end
 
@@ -199,9 +199,8 @@ class TweaksSubState extends BaseOptionsMenu
 		super.destroy();
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
-		    Application.current.window.alert(Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!);
 		    onStorageChange();
-			System.exit(0);
+			FlxG.resetGame()
 		}
 		#end
 	}

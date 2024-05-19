@@ -207,7 +207,7 @@ enum abstract StorageType(String) from String to String
 	public static function fromStr(str:String):StorageType
 	{
 		//final EXTERNAL_DATA = Tools.getExternalStorageDirectory() + '/Android/data/' + lime.app.Application.current.meta.get('packageName');
-		//final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
+		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
 		final NOVAFLARE = forcedPath + '.' + fileLocal2;
 		final NF_ENGINE = forcedPath + '.' + fileLocal;
 
