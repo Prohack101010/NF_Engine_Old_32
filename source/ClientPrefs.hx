@@ -47,6 +47,7 @@ class ClientPrefs {
 	public static var showComboNum = true;
 	public static var showRating = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
+	#if android public var storageType:String = "EXTERNAL_DATA"; #end
     
     public static var hitboxExtend:Int = 0;
     public static var fixopponentplay = true;
@@ -192,6 +193,7 @@ class ClientPrefs {
 		FlxG.save.data.showRating = showRating;
 		FlxG.save.data.showComboNum = showComboNum;
 		FlxG.save.data.hitboxmode = hitboxmode;
+		FlxG.save.data.storageType = storageType;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 		FlxG.save.data.VirtualPadSPACE = VirtualPadSPACE;
@@ -354,6 +356,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.hitboxmode != null) {
 			hitboxmode = FlxG.save.data.hitboxmode;
+		}
+		if(FlxG.save.data.storageType != null) {
+			storageType = FlxG.save.data.storageType;
 		}
 		if(FlxG.save.data.hitboxLocation != null) {
 			hitboxLocation = FlxG.save.data.hitboxLocation;

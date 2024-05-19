@@ -3,6 +3,7 @@ package options;
 #if desktop
 import Discord.DiscordClient;
 #end
+import lime.system.System;
 import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -60,11 +61,17 @@ typedef NoteSkinData =
 
 class TweaksSubState extends BaseOptionsMenu
 {
+    #if android
+	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL"];
+	var externalPaths:Array<String> = SUtil.checkExternalPaths(true);
+	final lastStorageType:String = ClientPrefs.data.storageType;
+	#end
 
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
+	    storageTypes = storageTypes.concat(externalPaths);
 		title = 'NF Engine Tweaks Menu';
 		rpcTitle = 'KralOyuncu & NF Engine Tweaks Menu'; //for Discord Rich Presence
         noteSkinList.unshift('original');
@@ -166,8 +173,42 @@ class TweaksSubState extends BaseOptionsMenu
 			'bool',
 			true);
 		addOption(option);
+		
+		#if android
+		option = new Option('Storage Type',
+			'Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)',
+			'storageType',
+			STRING,
+			storageTypes);
+			addOption(option);
+		#end
 
 		super();
+	}
+	
+	function onStorageChange():Void
+	{
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.data.storageType);
+
+		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
+
+		try
+		{
+			Sys.command('rm', ['-rf', lastStoragePath]);
+		}
+		catch (e:haxe.Exception)
+			trace('Failed to remove last directory. (${e.message})');
+	}
+	
+	override public function destroy() {
+		super.destroy();
+		#if android
+		if (ClientPrefs.data.storageType != lastStorageType) {
+		    onStorageChange();
+			SUtil.applicationAlert('', 'Notice!');
+			System.exit(0);
+		}
+		#end
 	}
 
 	var changedMusic:Bool = false;
