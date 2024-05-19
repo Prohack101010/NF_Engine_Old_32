@@ -171,22 +171,6 @@ class SUtil
 		SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
 	}
 	
-	public static function checkExternalPaths(?splitStorage = false):Array<String> {
-		var process = new process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
-		var paths:String = process.stdout.readAll().toString();
-		if (splitStorage) paths = paths.replace('/storage/', '');
-		return paths.split(',');
-	}
-
-	public static function getExternalDirectory(external:String):String {
-		var daPath:String = '';
-		for (path in checkExternalPaths())
-			if (path.contains(external)) daPath = path;
-
-		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
-		return daPath;
-	}
-	
     public static function AutosaveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
 		if (!FileSystem.exists('saves'))
@@ -230,7 +214,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
+			default: EXTERNAL;
 		}
 	}
 
@@ -247,7 +231,7 @@ enum abstract StorageType(String) from String to String
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
+			default: EXTERNAL;
 		}
 	}
 }
