@@ -176,10 +176,10 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		var option:Option = new Option('Storage Type:',
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
-			'splashType',
+			'storageType',
 			'string',
 			'EXTERNAL',
-			['EXTERNAL_DATA", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL']);
+			['EXTERNAL_DATA', 'EXTERNAL_OBB', 'EXTERNAL_MEDIA', 'EXTERNAL']);
 		addOption(option);
 		#end
 
