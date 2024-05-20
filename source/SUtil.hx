@@ -199,42 +199,42 @@ enum abstract StorageType(String) from String to String
 {
 	final forcedPath = '/storage/emulated/0/';
 	final packageNameLocal = 'com.NFengine063test';
-	final fileLocal = 'NF_ENGINE';
+	final fileLocal = 'NF Engine';
 	final fileLocal2 = 'NovaFlare Engine';
 	final fileLocal3 = 'PsychEngine';
 	//Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/'
 
 	public static function fromStr(str:String):StorageType
 	{
-		//final EXTERNAL_DATA = Tools.getExternalStorageDirectory() + '/Android/data/' + lime.app.Application.current.meta.get('packageName');
+		final SELECT = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
 		final NOVAFLARE = forcedPath + '.' + fileLocal2;
 		final NF_ENGINE = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
-			//case "EXTERNAL_DATA": EXTERNAL_DATA;
+			case "SELECT": SELECT;
 			case "PSYCH_ENGINE": PSYCH_ENGINE;
 			case "NOVAFLARE": NOVAFLARE;
 			case "NF_ENGINE": NF_ENGINE;
-			default: NF_ENGINE;
+			default: SELECT;
 		}
 	}
 
 	public static function fromStrForce(str:String):StorageType
 	{
-		//final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
+		final SELECT = forcedPath + '.' + fileLocal;
 		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
 		final NOVAFLARE = forcedPath + '.' + fileLocal2;
 		final NF_ENGINE = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
-			//case "EXTERNAL_DATA": EXTERNAL_DATA;
+			case "SELECT": SELECT;
 			case "PSYCH_ENGINE": PSYCH_ENGINE;
 			case "NOVAFLARE": NOVAFLARE;
 			case "NF_ENGINE": NF_ENGINE;
-			default: NF_ENGINE;
+			default: SELECT;
 		}
 	}
 }
