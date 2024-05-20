@@ -135,7 +135,6 @@ class SUtil
 		return daPath;
 	}
 	#end
-	#end
 	
 	public static function showPopUp(title:String, message:String #if android, ?positiveText:String = "OK", ?positiveFunc:Void->Void #end):Void
 	{
