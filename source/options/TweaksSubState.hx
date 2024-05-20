@@ -64,10 +64,6 @@ typedef NoteSkinData =
 
 class TweaksSubState extends BaseOptionsMenu
 {
-    #if android
-	final lastStorageType:String = ClientPrefs.storageType;
-	#end
-
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
@@ -180,30 +176,11 @@ class TweaksSubState extends BaseOptionsMenu
 			'storageType',
 			'string',
 			'NF_ENGINE',
-			['OBB', 'MEDIA', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
+			['OBB', 'MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
 
 		super();
-	}
-	
-	function onStorageChange():Void
-	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
-
-		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
-	}
-	
-	override public function destroy() {
-		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		super.destroy();
-		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-		    onStorageChange();
-			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-			lime.system.System.exit(0);
-		}
-		#end
 	}
 
 	var changedMusic:Bool = false;
@@ -218,6 +195,12 @@ class TweaksSubState extends BaseOptionsMenu
 			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
 
 		changedMusic = true;
+	}
+	
+	override function destroy()
+	{
+		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+		super.destroy();
 	}
 
 	function onChangeFPSCounter()

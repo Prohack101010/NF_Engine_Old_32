@@ -125,37 +125,6 @@ class SUtil
 		}
 	}
 	#end
-
-    /*
-    #if android
-	public static function doTheCheck():Void
-	{
-		if (!AndroidPermissions.getGrantedPermissions().contains(AndroidPermissions.READ_EXTERNAL_STORAGE)
-			&& !AndroidPermissions.getGrantedPermissions().contains(AndroidPermissions.WRITE_EXTERNAL_STORAGE))
-		{
-			AndroidPermissions.requestPermission(AndroidPermissions.READ_EXTERNAL_STORAGE);
-			AndroidPermissions.requestPermission(AndroidPermissions.WRITE_EXTERNAL_STORAGE);
-			SUtil.applicationAlert('Notice!',
-				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
-			if (!AndroidEnvironment.isExternalStorageManager())
-				AndroidSettings.requestSetting("android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-		}
-		else
-		{
-			try
-			{
-				if (!FileSystem.exists(SUtil.getStorageDirectory()))
-					FileSystem.createDirectory(SUtil.getStorageDirectory());
-			}
-			catch (e:Dynamic)
-			{
-				SUtil.applicationAlert("Error!", "Please create folder to\n" + SUtil.getStorageDirectory(true) + "\nPress OK to close the game");
-				LimeSystem.exit(1);
-			}
-		}
-	}
-	#end
-	*/
 	
 	public static function applicationAlert(title:String, message:String):Void
 	{
@@ -258,18 +227,18 @@ enum abstract StorageType(String) from String to String
 	{
 	    final OBB = AndroidContext.getObbDir();
 		final MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
-		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
-		final NOVAFLARE = forcedPath + '.' + fileLocal2;
-		final NF_ENGINE = forcedPath + '.' + fileLocal;
+		final PsychEngine = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file3');
+		final NovaFlare = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file2');
+		final NF_Engine = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 
 		return switch (str)
 		{
 		    case "OBB": OBB;
 			case "MEDIA": MEDIA;
-			case "PSYCH_ENGINE": PSYCH_ENGINE;
-			case "NOVAFLARE": NOVAFLARE;
-			case "NF_ENGINE": NF_ENGINE;
-			default: NF_ENGINE;
+			case "PsychEngine": PsychEngine;
+			case "NovaFlare": NovaFlare;
+			case "NF_Engine": NF_Engine;
+			default: NF_Engine;
 		}
 	}
 
@@ -277,18 +246,18 @@ enum abstract StorageType(String) from String to String
 	{
 	    final OBB = forcedPath + 'Android/obb/' + packageNameLocal;
 		final MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
-		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
-		final NOVAFLARE = forcedPath + '.' + fileLocal2;
-		final NF_ENGINE = forcedPath + '.' + fileLocal;
+		final PsychEngine = forcedPath + '.' + fileLocal3;
+		final NovaFlare = forcedPath + '.' + fileLocal2;
+		final NF_Engine = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
 		    case "OBB": OBB;
 			case "MEDIA": MEDIA;
-			case "PSYCH_ENGINE": PSYCH_ENGINE;
-			case "NOVAFLARE": NOVAFLARE;
-			case "NF_ENGINE": NF_ENGINE;
-			default: NF_ENGINE;
+			case "PsychEngine": PsychEngine;
+			case "NovaFlare": NovaFlare;
+			case "NF_Engine": NF_Engine;
+			default: NF_Engine;
 		}
 	}
 }
