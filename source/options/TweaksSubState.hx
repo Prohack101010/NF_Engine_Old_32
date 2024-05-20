@@ -200,7 +200,8 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
-			FlxG.resetGame();
+			SUtil.showPopUp('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
 		}
 		#end
 	}

@@ -91,7 +91,7 @@ class SUtil
 				FileSystem.createDirectory('saves');
 
 			File.saveContent('saves/' + fileName + fileExtension, fileData);
-			showPopUp("Success!", fileName + " file has been saved.");
+			SUtil.applicationAlert("Success!", fileName + " file has been saved.");
 		}
 		catch (e:haxe.Exception)
 			trace('File couldn\'t be saved. (${e.message})');
@@ -105,7 +105,7 @@ class SUtil
 		{
 			AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
 			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
-			showPopUp('Notice!',
+			SUtil.applicationAlert('Notice!',
 				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
 			if (!AndroidEnvironment.isExternalStorageManager())
 				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
@@ -119,7 +119,7 @@ class SUtil
 			}
 			catch (e:Dynamic)
 			{
-				showPopUp('Error!', 'Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game');
+				SUtil.applicationAlert('Error!', 'Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game');
 				LimeSystem.exit(1);
 			}
 		}
@@ -135,7 +135,7 @@ class SUtil
 		{
 			AndroidPermissions.requestPermission(AndroidPermissions.READ_EXTERNAL_STORAGE);
 			AndroidPermissions.requestPermission(AndroidPermissions.WRITE_EXTERNAL_STORAGE);
-			showPopUp('Notice!',
+			SUtil.applicationAlert('Notice!',
 				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
 			if (!AndroidEnvironment.isExternalStorageManager())
 				AndroidSettings.requestSetting("android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
@@ -149,7 +149,7 @@ class SUtil
 			}
 			catch (e:Dynamic)
 			{
-				showPopUp("Error!", "Please create folder to\n" + SUtil.getStorageDirectory(true) + "\nPress OK to close the game");
+				SUtil.applicationAlert("Error!", "Please create folder to\n" + SUtil.getStorageDirectory(true) + "\nPress OK to close the game");
 				LimeSystem.exit(1);
 			}
 		}
@@ -157,7 +157,7 @@ class SUtil
 	#end
 	*/
 	
-	public static function showPopUp(title:String, message:String):Void
+	public static function SUtil.applicationAlert(title:String, message:String):Void
 	{
 		#if (windows || android || js || wasm)
 		Lib.application.window.alert(message, title);
@@ -167,7 +167,7 @@ class SUtil
 	}
 	
 	/*
-	public static function showPopUp(title:String, message:String #if android, ?positiveText:String = "OK", ?positiveFunc:Void->Void #end):Void
+	public static function SUtil.applicationAlert(title:String, message:String #if android, ?positiveText:String = "OK", ?positiveFunc:Void->Void #end):Void
 	{
 		#if android
 		AndroidTools.showAlertDialog(title, message, {name: positiveText, func: positiveFunc}, null);
@@ -216,7 +216,7 @@ class SUtil
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 		Sys.println("Making a simple alert ...");
 
-		showPopUp(errMsg, "Uncaught Error :(!");
+		SUtil.applicationAlert(errMsg, "Uncaught Error :(!");
 		System.exit(0);
 	}
 
@@ -227,13 +227,13 @@ class SUtil
 			FileSystem.createDirectory('saves');
 
 		File.saveContent('saves/' + fileName + fileExtension, fileData);
-		//showPopUp('Done :)!', 'File Saved Successfully!');
+		//SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
 	}
 	
 	public static function saveClipboard(fileData:String = 'you forgot something to add in your code')
 	{
 		openfl.system.System.setClipboard(fileData);
-		showPopUp('Done :)!', 'Data Saved to Clipboard Successfully!');
+		SUtil.applicationAlert('Done :)!', 'Data Saved to Clipboard Successfully!');
 	}
 
 	public static function copyContent(copyPath:String, savePath:String)
