@@ -1,5 +1,12 @@
 package;
 
+#if android
+import android.content.Context as AndroidContext;
+import android.os.Environment as AndroidEnvironment;
+import android.Permissions as AndroidPermissions;
+import android.Settings as AndroidSettings;
+#end
+
 import lime.system.System as LimeSystem;
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
@@ -117,22 +124,6 @@ class SUtil
 				LimeSystem.exit(1);
 			}
 		}
-	}
-
-	public static function checkExternalPaths(?splitStorage = false):Array<String> {
-		var process = new Process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
-		var paths:String = process.stdout.readAll().toString();
-		if (splitStorage) paths = paths.replace('/storage/', '');
-		return paths.split(',');
-	}
-
-	public static function getExternalDirectory(external:String):String {
-		var daPath:String = '';
-		for (path in checkExternalPaths())
-			if (path.contains(external)) daPath = path;
-
-		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
-		return daPath;
 	}
 	#end
 	

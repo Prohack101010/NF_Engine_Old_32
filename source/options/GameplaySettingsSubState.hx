@@ -25,9 +25,11 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flixel.addons.display.FlxBackdrop;
 import Controls;
+/*
 #if android
 import android.Hardware;
 #end
+*/
 
 using StringTools;
 
@@ -196,6 +198,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), ClientPrefs.misssoundVolume);
 	}
 
+    /*
 	#if android
 	function onChangeVibration()
 	{
@@ -205,4 +208,5 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		}
 	}
 	#end
+	*/
 }
