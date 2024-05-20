@@ -97,7 +97,19 @@ class SUtil
 			trace('File couldn\'t be saved. (${e.message})');
 	}
 	
+	#if android
+	public static function doTheCheck():Void
+	{
+		if (!Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE) || !Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE))
+		{
+			if (!Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) Permissions.requestPermission(Permissions.READ_EXTERNAL_STORAGE);
+			if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)) Permissions.requestPermission(Permissions.WRITE_EXTERNAL_STORAGE);
+			showPopUp('Please Make Sure You Accepted The Permissions To Be Able To Run The Game', 'Notice!');
+		}
+	}
+	#end
 
+    /*
     #if android
 	public static function doTheCheck():Void
 	{
@@ -126,7 +138,18 @@ class SUtil
 		}
 	}
 	#end
+	*/
 	
+	public static function showPopUp(title:String, message:String):Void
+	{
+		#if (windows || android || js || wasm)
+		Lib.application.window.alert(message, title);
+		#else
+		LimeLogger.println('$title - $message');
+		#end
+	}
+	
+	/*
 	public static function showPopUp(title:String, message:String #if android, ?positiveText:String = "OK", ?positiveFunc:Void->Void #end):Void
 	{
 		#if android
@@ -137,6 +160,7 @@ class SUtil
 		LimeLogger.println('$title - $message');
 		#end
 	}
+	*/
 
 	public static function gameCrashCheck()
 	{
