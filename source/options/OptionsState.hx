@@ -26,6 +26,9 @@ import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flixel.addons.display.FlxBackdrop;
 import Controls;
+import sys.FileSystem;
+import sys.io.File;
+import lime.app.Application;
 
 using StringTools;
 
