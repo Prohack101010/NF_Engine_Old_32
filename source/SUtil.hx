@@ -3,7 +3,7 @@ package;
 #if android
 import android.content.Context as AndroidContext;
 import android.os.Environment as AndroidEnvironment;
-import android.Permissions as AndroidPermissions;
+import android.Permissions;
 import android.Settings as AndroidSettings;
 #end
 
