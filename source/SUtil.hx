@@ -3,7 +3,7 @@ package;
 #if android
 import android.content.Context as AndroidContext;
 import android.os.Environment as AndroidEnvironment;
-import android.Permissions;
+import android.Permissions as AndroidPermissions;
 import android.Settings as AndroidSettings;
 #end
 
@@ -98,16 +98,32 @@ class SUtil
 	}
 	
 	#if android
-	public static function doTheCheck():Void
+	public static function doPermissionsShit():Void
 	{
-		if (!Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE) || !Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE))
+		if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')
+			&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.WRITE_EXTERNAL_STORAGE'))
 		{
-			if (!Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) Permissions.requestPermission(Permissions.READ_EXTERNAL_STORAGE);
-			if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)) Permissions.requestPermission(Permissions.WRITE_EXTERNAL_STORAGE);
-			showPopUp('Please Make Sure You Accepted The Permissions To Be Able To Run The Game', 'Notice!');
+			AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
+			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
+			showPopUp('Notice!',
+				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
+			if (!AndroidEnvironment.isExternalStorageManager())
+				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
+		}
+		else
+		{
+			try
+			{
+				if (!FileSystem.exists(SUtil.getStorageDirectory()))
+					FileSystem.createDirectory(SUtil.getStorageDirectory());
+			}
+			catch (e:Dynamic)
+			{
+				showPopUp('Error!', 'Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game');
+				LimeSystem.exit(1);
+			}
 		}
 	}
-	#end
 
     /*
     #if android
