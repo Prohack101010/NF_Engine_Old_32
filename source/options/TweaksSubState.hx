@@ -179,8 +179,8 @@ class TweaksSubState extends BaseOptionsMenu
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
 			'storageType',
 			'string',
-			'SELECT',
-			['SELECT', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
+			'NF_ENGINE',
+			['OBB', 'MEDIA', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
 		addOption(option);
 		#end
 

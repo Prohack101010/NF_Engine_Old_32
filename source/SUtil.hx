@@ -206,35 +206,39 @@ enum abstract StorageType(String) from String to String
 
 	public static function fromStr(str:String):StorageType
 	{
-		final SELECT = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+	    final OBB = Tools.getObbDir();
+		final MEDIA = Tools.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
 		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
 		final NOVAFLARE = forcedPath + '.' + fileLocal2;
 		final NF_ENGINE = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
-			case "SELECT": SELECT;
+		    case "OBB": OBB;
+			case "MEDIA": MEDIA;
 			case "PSYCH_ENGINE": PSYCH_ENGINE;
 			case "NOVAFLARE": NOVAFLARE;
 			case "NF_ENGINE": NF_ENGINE;
-			default: SELECT;
+			default: NF_ENGINE;
 		}
 	}
 
 	public static function fromStrForce(str:String):StorageType
 	{
-		final SELECT = forcedPath + '.' + fileLocal;
+	    final OBB = forcedPath + 'Android/obb/' + packageNameLocal;
+		final MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
 		final PSYCH_ENGINE = forcedPath + '.' + fileLocal3;
 		final NOVAFLARE = forcedPath + '.' + fileLocal2;
 		final NF_ENGINE = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
-			case "SELECT": SELECT;
+		    case "OBB": OBB;
+			case "MEDIA": MEDIA;
 			case "PSYCH_ENGINE": PSYCH_ENGINE;
 			case "NOVAFLARE": NOVAFLARE;
 			case "NF_ENGINE": NF_ENGINE;
-			default: SELECT;
+			default: NF_ENGINE;
 		}
 	}
 }
