@@ -157,7 +157,7 @@ class SUtil
 	#end
 	*/
 	
-	public static function SUtil.applicationAlert(title:String, message:String):Void
+	public static function applicationAlert(title:String, message:String):Void
 	{
 		#if (windows || android || js || wasm)
 		Lib.application.window.alert(message, title);
