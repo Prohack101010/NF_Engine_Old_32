@@ -189,9 +189,10 @@
 
 	<!-- _________________________________ Android Stuff _______________________________ -->
 	<!--Target SDK (SDK 29 Now Working)-->
-	<android target-sdk-version="28" />
+	<android target-sdk-version="29" />
 
 	<!-- (⁠ ͝⁠°⁠ ͜⁠ʖ͡⁠°⁠) Android Permissions (⁠ ͝⁠°⁠ ͜⁠ʖ͡⁠°⁠) -->
+	<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" if="android"/>
 	<config:android permission="android.permission.READ_EXTERNAL_STORAGE" if="android"/>
 	<config:android permission="android.permission.WRITE_EXTERNAL_STORAGE" if="android"/>
   <config:android gradle-version="7.5.1" />
