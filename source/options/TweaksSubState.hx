@@ -193,8 +193,8 @@ class TweaksSubState extends BaseOptionsMenu
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
 	}
 	
-	override function update() {
-		super.update();
+	override function update(elapsed:Float) {
+		super.update(elapsed);
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
