@@ -64,6 +64,9 @@ typedef NoteSkinData =
 
 class TweaksSubState extends BaseOptionsMenu
 {
+    #if android
+	final lastStorageType:String = ClientPrefs.storageType;
+	#end
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
@@ -175,12 +178,21 @@ class TweaksSubState extends BaseOptionsMenu
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
 			'storageType',
 			'string',
-			'NF_ENGINE',
-			['MEDIA', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
+			'NF_Engine',
+			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
 
 		super();
+	}
+	
+	override public function destroy() {
+		super.destroy();
+		#if android
+		if (ClientPrefs.storageType != lastStorageType) {
+		    FlxG.resetGame();
+		}
+		#end
 	}
 
 	var changedMusic:Bool = false;

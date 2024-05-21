@@ -55,6 +55,9 @@ typedef TitleData =
 }
 class TitleState extends MusicBeatState
 {
+    #if android
+	final lastStorageType:String = ClientPrefs.storageType;
+	#end
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
 	public static var volumeUpKeys:Array<FlxKey> = [FlxKey.NUMPADPLUS, FlxKey.PLUS];
@@ -429,6 +432,24 @@ class TitleState extends MusicBeatState
 		}
 
 		return swagGoodArray;
+	}
+	
+	function onStorageChange():Void
+	{
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
+
+		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
+	}
+	
+	override public function destroy() {
+		super.destroy();
+		#if android
+		if (ClientPrefs.storageType != lastStorageType) {
+		    onStorageChange();
+			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
+		}
+		#end
 	}
 
 	var transitioning:Bool = false;
