@@ -193,11 +193,21 @@ class TweaksSubState extends BaseOptionsMenu
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
 	}
 	
+	override function update() {
+		super.update();
+		#if android
+		if (ClientPrefs.storageType != lastStorageType) {
+		    onStorageChange();
+		}
+		#end
+	}
+	
 	override public function destroy() {
 		super.destroy();
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
-		    onStorageChange();
+			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
 		}
 		#end
 	}

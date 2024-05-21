@@ -34,9 +34,6 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-    #if android
-	final lastStorageType:String = ClientPrefs.storageType;
-	#end
 	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -221,16 +218,6 @@ class OptionsState extends MusicBeatState
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}
-	}
-	
-	override public function destroy() {
-		super.destroy();
-		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-			lime.system.System.exit(0);
-		}
-		#end
 	}
 	
 	function changeSelection(change:Int = 0) {
