@@ -176,7 +176,7 @@ class TweaksSubState extends BaseOptionsMenu
 			'storageType',
 			'string',
 			'NF_ENGINE',
-			['OBB', 'MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
+			['MEDIA', 'NF_ENGINE', 'NOVAFLARE', 'PSYCH_ENGINE']);
 		addOption(option);
 		#end
 
@@ -195,12 +195,6 @@ class TweaksSubState extends BaseOptionsMenu
 			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
 
 		changedMusic = true;
-	}
-	
-	override function destroy()
-	{
-		if(changedMusic) FlxG.sound.playMusic(Paths.music('freakyMenu'));
-		super.destroy();
 	}
 
 	function onChangeFPSCounter()

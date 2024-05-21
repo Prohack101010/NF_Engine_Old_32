@@ -78,8 +78,8 @@
             "name":"extension-androidtools",
             "type":"git",
             "dir":null,
-            "ref":"3b8d20a8b557e96e4cd2d58740c8f18d657e5044",
-            "url":"https://github.com/Prohack101010/extension-androidtools-2.git"
+            "ref":"main",
+            "url":"https://github.com/MaysLastPlay77/extension-androidtools"
         }
     ]
         }

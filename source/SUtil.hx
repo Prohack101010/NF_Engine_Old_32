@@ -1,12 +1,10 @@
 package;
 
 #if android
-import android.content.Context as AndroidContext;
-import android.os.Environment as AndroidEnvironment;
-import android.Permissions as AndroidPermissions;
-import android.Settings as AndroidSettings;
+import android.Tools;
+import android.Permissions;
+import android.PermissionsList;
 #end
-
 import lime.system.System as LimeSystem;
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
@@ -71,82 +69,51 @@ class SUtil
 
 				total += part;
 
-				try
-				{
-					if (!FileSystem.exists(total))
-						FileSystem.createDirectory(total);
-				}
-				catch (e:haxe.Exception)
-					trace('Error while creating folder. (${e.message}');
+				if (!FileSystem.exists(total))
+					FileSystem.createDirectory(total);
 			}
 		}
 	}
-	
-	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
-			fileData:String = 'You forgor to add somethin\' in yo code :3'):Void
-	{
-		try
-		{
-			if (!FileSystem.exists('saves'))
-				FileSystem.createDirectory('saves');
 
-			File.saveContent('saves/' + fileName + fileExtension, fileData);
-			SUtil.applicationAlert("Success!", fileName + " file has been saved.");
-		}
-		catch (e:haxe.Exception)
-			trace('File couldn\'t be saved. (${e.message})');
-	}
-	
-	#if android
-	public static function doPermissionsShit():Void
-	{
-		if (!AndroidPermissions.getGrantedPermissions().contains('android.permission.READ_EXTERNAL_STORAGE')
-			&& !AndroidPermissions.getGrantedPermissions().contains('android.permission.WRITE_EXTERNAL_STORAGE'))
-		{
-			AndroidPermissions.requestPermission('READ_EXTERNAL_STORAGE');
-			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
-			SUtil.applicationAlert('Notice!',
-				'If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens');
-			if (!AndroidEnvironment.isExternalStorageManager())
-				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
-		}
-		else
-		{
-			try
-			{
-				if (!FileSystem.exists(SUtil.getStorageDirectory()))
-					FileSystem.createDirectory(SUtil.getStorageDirectory());
-			}
-			catch (e:Dynamic)
-			{
-				SUtil.applicationAlert('Error!', 'Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game');
-				LimeSystem.exit(1);
-			}
-		}
-	}
-	#end
-	
-	public static function applicationAlert(title:String, message:String):Void
-	{
-		#if (windows || android || js || wasm)
-		Lib.application.window.alert(message, title);
-		#else
-		LimeLogger.println('$title - $message');
-		#end
-	}
-	
-	/*
-	public static function SUtil.applicationAlert(title:String, message:String #if android, ?positiveText:String = "OK", ?positiveFunc:Void->Void #end):Void
+	public static function doTheCheck()
 	{
 		#if android
-		AndroidTools.showAlertDialog(title, message, {name: positiveText, func: positiveFunc}, null);
-		#elseif (windows || web)
-		openfl.Lib.application.window.alert(message, title);
-		#else
-		LimeLogger.println('$title - $message');
+		if (!Permissions.getGrantedPermissions().contains(PermissionsList.READ_EXTERNAL_STORAGE) || !Permissions.getGrantedPermissions().contains(PermissionsList.WRITE_EXTERNAL_STORAGE))
+		{
+			Permissions.requestPermissions([PermissionsList.READ_EXTERNAL_STORAGE, PermissionsList.WRITE_EXTERNAL_STORAGE]);
+			SUtil.applicationAlert('Permissions', "if you acceptd the permissions all good if not expect a crash" + '\n' + 'Press Ok to see what happens');
+		}
+
+		if (Permissions.getGrantedPermissions().contains(PermissionsList.READ_EXTERNAL_STORAGE) || Permissions.getGrantedPermissions().contains(PermissionsList.WRITE_EXTERNAL_STORAGE))
+		{
+			if (!FileSystem.exists(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file')))
+				FileSystem.createDirectory(Tools.getExternalStorageDirectory() + '/' + '.' + Application.current.meta.get('file'));
+
+			if (!FileSystem.exists('assets') && !FileSystem.exists('mods'))
+			{
+				SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the files from the .APK!\nPlease watch the tutorial by pressing OK.");
+				CoolUtil.browserLoad('https://b23.tv/qnuSteM');
+				System.exit(0);
+			}
+			else
+			{
+				if (!FileSystem.exists('assets'))
+				{
+					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/assets folder from the .APK!\nPlease watch the tutorial by pressing OK.");
+					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
+					System.exit(0);
+				}
+
+				if (!FileSystem.exists('mods'))
+				{
+					SUtil.applicationAlert('Uncaught Error :(!', "Whoops, seems you didn't extract the assets/mods folder from the .APK!\nPlease watch the tutorial by pressing OK.");
+					CoolUtil.browserLoad('https://b23.tv/qnuSteM');
+					System.exit(0);
+				}
+			}
+		}
 		#end
 	}
-	*/
 
 	public static function gameCrashCheck()
 	{
@@ -185,11 +152,25 @@ class SUtil
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 		Sys.println("Making a simple alert ...");
 
-		SUtil.applicationAlert(errMsg, "Uncaught Error :(!");
+		SUtil.applicationAlert("Uncaught Error :(!", errMsg);
 		System.exit(0);
 	}
 
+	private static function applicationAlert(title:String, description:String)
+	{
+		Application.current.window.alert(description, title);
+	}
+
 	#if android
+	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
+	{
+		if (!FileSystem.exists('saves'))
+			FileSystem.createDirectory('saves');
+
+		File.saveContent('saves/' + fileName + fileExtension, fileData);
+		SUtil.applicationAlert('Done :)!', 'File Saved Successfully!');
+	}
+	
     public static function AutosaveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot something to add in your code')
 	{
 		if (!FileSystem.exists('saves'))
@@ -221,19 +202,17 @@ enum abstract StorageType(String) from String to String
 	final fileLocal = 'NF Engine';
 	final fileLocal2 = 'NovaFlare Engine';
 	final fileLocal3 = 'PsychEngine';
-	//AndroidEnvironment.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/'
+	//Tools.getExternalStorageDirectory() + '/Android/data/' + Application.current.meta.get('packageName') + '/'
 
 	public static function fromStr(str:String):StorageType
 	{
-	    final OBB = AndroidContext.getObbDir();
-		final MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
-		final PsychEngine = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file3');
-		final NovaFlare = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file2');
-		final NF_Engine = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+		final MEDIA = Tools.getExternalStorageDirectory() + '/Android/media/' + Application.current.meta.get('packageName');
+		final PsychEngine = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file3');
+		final NovaFlare = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file2');
+		final NF_Engine = Tools.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
 
 		return switch (str)
 		{
-		    case "OBB": OBB;
 			case "MEDIA": MEDIA;
 			case "PsychEngine": PsychEngine;
 			case "NovaFlare": NovaFlare;
@@ -244,15 +223,13 @@ enum abstract StorageType(String) from String to String
 
 	public static function fromStrForce(str:String):StorageType
 	{
-	    final OBB = forcedPath + 'Android/obb/' + packageNameLocal;
-		final MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
+		final MEDIA = forcedPath + '.' + fileLocal;
 		final PsychEngine = forcedPath + '.' + fileLocal3;
 		final NovaFlare = forcedPath + '.' + fileLocal2;
 		final NF_Engine = forcedPath + '.' + fileLocal;
 
 		return switch (str)
 		{
-		    case "OBB": OBB;
 			case "MEDIA": MEDIA;
 			case "PsychEngine": PsychEngine;
 			case "NovaFlare": NovaFlare;
