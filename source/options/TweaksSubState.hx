@@ -186,11 +186,20 @@ class TweaksSubState extends BaseOptionsMenu
 		super();
 	}
 	
+	function onStorageChange():Void
+	{
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
+
+		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
+	}
+	
 	override public function destroy() {
 		super.destroy();
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
-		    FlxG.resetGame();
+		    onStorageChange();
+			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
 		}
 		#end
 	}

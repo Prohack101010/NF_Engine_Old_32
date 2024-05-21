@@ -28,6 +28,9 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
+    #if android
+	final lastStorageType:String = ClientPrefs.storageType;
+	#end
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
@@ -459,6 +462,17 @@ class MainMenuState extends MusicBeatState
 		//CustomFadeTransition.nextCamera = camHUD;
 		
 		super.update(elapsed);
+	}
+	
+	
+	override public function destroy() {
+		super.destroy();
+		#if android
+		if (ClientPrefs.storageType != lastStorageType) {
+			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			lime.system.System.exit(0);
+		}
+		#end
 	}
     
 	
