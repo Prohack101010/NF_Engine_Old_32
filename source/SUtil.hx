@@ -156,7 +156,7 @@ class SUtil
 		System.exit(0);
 	}
 
-	private static function applicationAlert(title:String, description:String)
+	private static function applicationAlert(title:String, description:String):void
 	{
 		Application.current.window.alert(description, title);
 	}
