@@ -1204,7 +1204,8 @@ class PlayState extends MusicBeatState
 
 		// startCountdown();
 
-		generateSong(SONG.song);
+		if (!ClientPrefs.fasterChartLoad) generateSong(SONG.song);
+		if (ClientPrefs.fasterChartLoad) generateSongOptim(SONG.song);
 
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
@@ -2875,6 +2876,145 @@ class PlayState extends MusicBeatState
 		unspawnNotes.sort(sortByTime);
 		generatedMusic = true;
 	}
+	private function generateSongOptim(dataPath:String):Void
+	{
+		// FlxG.log.add(ChartParser.parse());
+		songSpeedType = ClientPrefs.getGameplaySetting('scrolltype','multiplicative');
+
+		switch(songSpeedType)
+		{
+			case "multiplicative":
+				songSpeed = SONG.speed * ClientPrefs.getGameplaySetting('scrollspeed', 1);
+			case "constant":
+				songSpeed = ClientPrefs.getGameplaySetting('scrollspeed', 1);
+		}
+
+		var songData = SONG;
+		Conductor.changeBPM(songData.bpm);
+
+		curSong = songData.song;
+
+		if (SONG.needsVoices)
+			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+		else
+			vocals = new FlxSound();
+
+		vocals.pitch = playbackRate;
+		FlxG.sound.list.add(vocals);
+		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
+
+		notes = new FlxTypedGroup<Note>();
+		add(notes);
+
+		var noteData:Array<SwagSection>;
+
+		// NEW SHIT
+		noteData = songData.notes;
+
+		var songName:String = Paths.formatToSongPath(SONG.song);
+		var file:String = Paths.json(songName + '/events');
+		#if MODS_ALLOWED
+		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
+		#else
+		if (OpenFlAssets.exists(file)) {
+		#end
+			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+			for (event in eventsData) //Event Notes
+			{
+				for (i in 0...event[1].length)
+				{
+					var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
+					var subEvent:EventNote = {
+						strumTime: newEventNote[0] + ClientPrefs.noteOffset,
+						event: newEventNote[1],
+						value1: newEventNote[2],
+						value2: newEventNote[3]
+					};
+					if (SONG.song.toLowerCase() != 'anti-cheat-song') {
+					eventNotes.push(subEvent);
+					eventPushed(subEvent);
+					}
+				}
+			}
+		}
+
+		for (section in noteData)
+		{
+			for (songNotes in section.sectionNotes)
+			{
+				var daStrumTime:Float = songNotes[0];
+				var daNoteData:Int = 0;
+				daNoteData = Std.int(songNotes[1] % 4);
+
+				var gottaHitNote:Bool = section.mustHitSection;
+
+				if (songNotes[1] > 3 && !opponentChart && !bothsides)
+				{
+					gottaHitNote = !section.mustHitSection;
+				}
+				if (songNotes[1] <= 3 && opponentChart && !bothsides)
+				{
+					gottaHitNote = !section.mustHitSection;
+				}
+				else if (bothsides)
+				{
+					gottaHitNote = true;
+				}
+
+				var oldNote:Note;
+				if (unspawnNotes.length > 0)
+					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
+				else
+					oldNote = null;
+
+				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote);
+				swagNote.mustPress = gottaHitNote;
+				swagNote.sustainLength = songNotes[2];
+				swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
+
+				swagNote.scrollFactor.set();
+				unspawnNotes.push(swagNote);
+
+				var floorSus:Int = Math.floor(swagNote.sustainLength / Conductor.stepCrochet);
+				if(floorSus > 0) {
+					for (susNote in 0...floorSus+1)
+					{
+						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
+
+						var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(songSpeed, 2)), daNoteData, oldNote, true);
+						sustainNote.mustPress = gottaHitNote;
+						sustainNote.gfNote = (section.gfSection && (songNotes[1]<4));
+						sustainNote.scrollFactor.set();
+						swagNote.tail.push(sustainNote);
+						sustainNote.parent = swagNote;
+						unspawnNotes.push(sustainNote);
+					}
+				}
+			}
+		}
+		for (event in songData.events) //Event Notes
+		{
+			for (i in 0...event[1].length)
+			{
+				var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
+				var subEvent:EventNote = {
+					strumTime: newEventNote[0] + ClientPrefs.noteOffset,
+					event: newEventNote[1],
+					value1: newEventNote[2],
+					value2: newEventNote[3]
+				};
+				eventNotes.push(subEvent);
+				eventPushed(subEvent);
+			}
+		}
+
+		// trace(unspawnNotes.length);
+		// playerCounter += 1;
+
+		unspawnNotes.sort(sortByTime);
+		generatedMusic = true;
+	}
+	
 
 	function eventPushed(event:EventNote) {
 		switch(event.event) {
@@ -2892,7 +3032,7 @@ class PlayState extends MusicBeatState
 
 				var newCharacter:String = event.value2;
 				addCharacterToList(newCharacter, charType);
-				if (ClientPrefs.gradientTimeBar) {
+				if (ClientPrefs.noteOffset) {
 				var wawa = [];
                 for (i in dad.healthColorArray) wawa.push(StringTools.hex(i, 2));
                 var wawa2 = [];
@@ -4940,7 +5080,8 @@ class PlayState extends MusicBeatState
 				#end
 				*/
 			}
-			else if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			if (ClientPrefs.charsAndBG) {
+			if (boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
 			{
 				boyfriend.dance();
 				//boyfriend.animation.curAnim.finish();
@@ -4948,6 +5089,7 @@ class PlayState extends MusicBeatState
 			if (dad.holdTimer > Conductor.stepCrochet * 0.001 * dad.singDuration 
 			&& dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss'))
 				dad.dance();
+		}
 		}
 
 		// TO DO: Find a better way to handle controller inputs, this should work for now

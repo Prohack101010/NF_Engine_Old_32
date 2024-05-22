@@ -173,6 +173,20 @@ class TweaksSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 		
+		var option:Option = new Option('Chars & BG',
+			'If unchecked, gameplay will only show the HUD',
+			'charsAndBG',
+			'bool',
+			true);
+		addOption(option);
+		
+		var option:Option = new Option('Optimized Chart Loading',
+			'If checked, hopefully tries to get charts to load faster.',
+			'fasterChartLoad',
+			'bool',
+			false);
+		addOption(option);
+		
 		#if android
 		var option:Option = new Option('Storage Type:',
 			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
@@ -182,13 +196,6 @@ class TweaksSubState extends BaseOptionsMenu
 			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
-		
-		var option:Option = new Option('Chars & BG',
-			'If checked, gameplay will only show the HUD',
-			'charsAndBG',
-			'bool',
-			true);
-		addOption(option);
 
 		super();
 	}
