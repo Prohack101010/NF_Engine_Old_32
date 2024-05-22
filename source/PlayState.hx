@@ -3752,17 +3752,12 @@ class PlayState extends MusicBeatState
 		if(FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
 			vocals.pause();
-		}
 		#if android
 			androidc.y = 720;
 			//androidc.visible = true;
 			#end
-		if (!ClientPrefs.charsAndBG) {
-		openSubState(new PauseSubState(0, 0));
-		}
-		if (ClientPrefs.charsAndBG) {
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-		}
+		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
+		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop
