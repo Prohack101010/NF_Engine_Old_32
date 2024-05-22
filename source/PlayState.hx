@@ -464,7 +464,7 @@ class PlayState extends MusicBeatState
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
-		curStage = SONG.stage;
+		curStage = (!ClientPrefs.charsAndBG ? "" : SONG.stage);
 		//trace('stage is: ' + curStage);
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			switch (songName)
@@ -958,7 +958,7 @@ class PlayState extends MusicBeatState
 			SONG.gfVersion = gfVersion; //Fix for the Chart Editor
 		}
 
-		if (!stageData.hide_girlfriend)
+		if (!stageData.hide_girlfriend && ClientPrefs.charsAndBG)
 		{
 			gf = new Character(0, 0, gfVersion);
 			startCharacterPos(gf);
@@ -987,16 +987,26 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
+		
+        if (!ClientPrefs.charsAndBG)
+		{
+		dad = new Character(0, 0, "");
+		dadGroup.add(dad);
 
+		boyfriend = new Boyfriend(0, 0, "");
+		boyfriendGroup.add(boyfriend);
+		} else
+		{
 		dad = new Character(0, 0, SONG.player2);
 		startCharacterPos(dad, true);
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
-
+        
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
 		boyfriendGroup.add(boyfriend);
 		startCharacterLua(boyfriend.curCharacter);
+		}
 
 		var camPos:FlxPoint = new FlxPoint(girlfriendCameraOffset[0], girlfriendCameraOffset[1]);
 		if(gf != null)
@@ -1250,12 +1260,15 @@ class PlayState extends MusicBeatState
 		}
 		add(camFollowPos);
 
+        if (ClientPrefs.charsAndBG)
+		{
 		FlxG.camera.follow(camFollowPos, LOCKON, 1);
 		// FlxG.camera.setScrollBounds(0, FlxG.width, 0, FlxG.height);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(camFollow);
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
+		}
 
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
@@ -1345,6 +1358,15 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
+		}
+		
+		if (!ClientPrefs.charsAndBG) {
+		remove(dadGroup);
+		remove(boyfriendGroup);
+		remove(gfGroup);
+		gfGroup.destroy();
+		dadGroup.destroy();
+		boyfriendGroup.destroy();
 		}
 		
 		if (ClientPrefs.hudType == 'Psych Engine')
@@ -2360,6 +2382,7 @@ class PlayState extends MusicBeatState
 
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, function(tmr:FlxTimer)
 			{
+			    if (ClientPrefs.charsAndBG) {
 				if (gf != null && tmr.loopsLeft % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 				{
 					gf.dance();
@@ -2371,6 +2394,7 @@ class PlayState extends MusicBeatState
 				if (tmr.loopsLeft % dad.danceEveryNumBeats == 0 && dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing') && !dad.stunned)
 				{
 					dad.dance();
+				}
 				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
@@ -3344,6 +3368,7 @@ class PlayState extends MusicBeatState
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
+			if (ClientPrefs.charsAndBG) {
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
 				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
@@ -3351,6 +3376,7 @@ class PlayState extends MusicBeatState
 				}
 			} else {
 				boyfriendIdleTime = 0;
+			}
 			}
 		}
 
@@ -3543,13 +3569,15 @@ class PlayState extends MusicBeatState
 			{
 				if(!cpuControlled) {
 					keyShit();
-				} else if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
+				if (ClientPrefs.charsAndBG) {
+				if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
 					boyfriend.dance();
 					//boyfriend.animation.curAnim.finish();
 				}
 				
 				if(cpuControlled && opponentChart && dad.holdTimer > Conductor.stepCrochet * 0.001 / playbackRate * dad.singDuration && dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss')) {
 					dad.dance();
+				}
 				}
 
 				if(startedCountdown)
@@ -3729,7 +3757,8 @@ class PlayState extends MusicBeatState
 			androidc.y = 720;
 			//androidc.visible = true;
 			#end
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
+		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop
@@ -3869,6 +3898,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Hey!':
+			    if (ClientPrefs.charsAndBG) {
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend' | '0':
@@ -3900,6 +3930,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = time;
+				}
 				}
 
 			case 'Set GF Speed':
@@ -5065,11 +5096,11 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 
-			if(opponentChart) {
+			if(opponentChart && ClientPrefs.charsAndBG) {
 				boyfriend.playAnim(animToPlay, true);
 				boyfriend.holdTimer = 0;
 			}
-			else if(char != null && !opponentChart)
+			else if(char != null && !opponentChart && ClientPrefs.charsAndBG)
 			{
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
@@ -5516,6 +5547,7 @@ class PlayState extends MusicBeatState
 		{
 			gf.dance();
 		}
+		if (ClientPrefs.charsAndBG) {
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
 		{
 			boyfriend.dance();
@@ -5577,6 +5609,7 @@ class PlayState extends MusicBeatState
 		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikeShit();
+		}
 		}
 		lastBeatHit = curBeat;
 

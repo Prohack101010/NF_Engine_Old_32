@@ -182,6 +182,13 @@ class TweaksSubState extends BaseOptionsMenu
 			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
 		addOption(option);
 		#end
+		
+		var option:Option = new Option('Chars & BG',
+			'If checked, gameplay will only show the HUD',
+			'charsAndBG',
+			'bool',
+			true);
+		addOption(option);
 
 		super();
 	}

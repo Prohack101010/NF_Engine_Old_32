@@ -44,6 +44,7 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var comboStacking = true;
+	public static var charsAndBG:Bool = true;
 	public static var showComboNum = true;
 	public static var showRating = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
@@ -194,6 +195,7 @@ class ClientPrefs {
 		FlxG.save.data.showComboNum = showComboNum;
 		FlxG.save.data.hitboxmode = hitboxmode;
 		FlxG.save.data.storageType = storageType;
+		FlxG.save.data.charsAndBG = charsAndBG;
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 		FlxG.save.data.VirtualPadSPACE = VirtualPadSPACE;
@@ -314,6 +316,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.scoreZoom != null) {
 			scoreZoom = FlxG.save.data.scoreZoom;
+		}
+		if(FlxG.save.data.charsAndBG != null) {
+			charsAndBG = FlxG.save.data.charsAndBG;
 		}
 		if(FlxG.save.data.noReset != null) {
 			noReset = FlxG.save.data.noReset;
