@@ -62,7 +62,6 @@ import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
 import haxe.io.Path;
-import haxe.Int64;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -193,7 +192,7 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
-	public var combo:Float = 0;
+	public var combo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -3570,6 +3569,7 @@ class PlayState extends MusicBeatState
 			{
 				if(!cpuControlled) {
 					keyShit();
+				}
 				if (ClientPrefs.charsAndBG) {
 				if(boyfriend.animation.curAnim != null && boyfriend.holdTimer > Conductor.stepCrochet * (0.0011 / FlxG.sound.music.pitch) * boyfriend.singDuration && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss')) {
 					boyfriend.dance();
@@ -3758,7 +3758,8 @@ class PlayState extends MusicBeatState
 			androidc.y = 720;
 			//androidc.visible = true;
 			#end
-		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
+		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop
@@ -3898,6 +3899,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Hey!':
+			    if (ClientPrefs.charsAndBG) {
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend' | '0':
@@ -3929,6 +3931,7 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = time;
+				}
 				}
 
 			case 'Set GF Speed':
@@ -5094,11 +5097,11 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 
-			if(opponentChart) {
+			if(opponentChart && ClientPrefs.charsAndBG) {
 				boyfriend.playAnim(animToPlay, true);
 				boyfriend.holdTimer = 0;
 			}
-			else if(char != null && !opponentChart)
+			else if(char != null && !opponentChart && ClientPrefs.charsAndBG)
 			{
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
@@ -5545,6 +5548,7 @@ class PlayState extends MusicBeatState
 		{
 			gf.dance();
 		}
+		if (ClientPrefs.charsAndBG) {
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
 		{
 			boyfriend.dance();
@@ -5606,6 +5610,7 @@ class PlayState extends MusicBeatState
 		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikeShit();
+		}
 		}
 		lastBeatHit = curBeat;
 
