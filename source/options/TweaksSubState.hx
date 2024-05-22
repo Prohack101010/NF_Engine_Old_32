@@ -191,13 +191,6 @@ class TweaksSubState extends BaseOptionsMenu
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
-		
-		try
-		{
-			Sys.command('rm', ['-rf', lastStoragePath]);
-		}
-		catch (e:haxe.Exception)
-			trace('Failed to remove last directory. (${e.message})');
 	}
 	
 	override public function destroy() {
@@ -205,8 +198,6 @@ class TweaksSubState extends BaseOptionsMenu
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
 		    onStorageChange();
-			// SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-			// lime.system.System.exit(0);
 		}
 		#end
 	}
