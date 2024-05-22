@@ -191,23 +191,22 @@ class TweaksSubState extends BaseOptionsMenu
 		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
 
 		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
-	}
-	
-	override function update(elapsed:Float) {
-		super.update(elapsed);
-		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-		    onStorageChange();
+		
+		try
+		{
+			Sys.command('rm', ['-rf', lastStoragePath]);
 		}
-		#end
+		catch (e:haxe.Exception)
+			trace('Failed to remove last directory. (${e.message})');
 	}
 	
 	override public function destroy() {
 		super.destroy();
 		#if android
 		if (ClientPrefs.storageType != lastStorageType) {
-			SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
-			lime.system.System.exit(0);
+		    onStorageChange();
+			// SUtil.applicationAlert('Notice!', 'Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.');
+			// lime.system.System.exit(0);
 		}
 		#end
 	}
