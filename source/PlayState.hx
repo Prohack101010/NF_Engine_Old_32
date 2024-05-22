@@ -62,6 +62,7 @@ import DialogueBoxPsych;
 import Conductor.Rating;
 import flixel.system.FlxAssets.FlxShader;
 import haxe.io.Path;
+import haxe.Int64;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -192,7 +193,7 @@ class PlayState extends MusicBeatState
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
-	public var combo:Int = 0;
+	public var combo:Float = 0;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -3752,12 +3753,12 @@ class PlayState extends MusicBeatState
 		if(FlxG.sound.music != null) {
 			FlxG.sound.music.pause();
 			vocals.pause();
+		}
 		#if android
 			androidc.y = 720;
 			//androidc.visible = true;
 			#end
-		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
-		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
 
 		#if desktop
@@ -3897,7 +3898,6 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'Hey!':
-			    if (ClientPrefs.charsAndBG) {
 				var value:Int = 2;
 				switch(value1.toLowerCase().trim()) {
 					case 'bf' | 'boyfriend' | '0':
@@ -3929,7 +3929,6 @@ class PlayState extends MusicBeatState
 					boyfriend.playAnim('hey', true);
 					boyfriend.specialAnim = true;
 					boyfriend.heyTimer = time;
-				}
 				}
 
 			case 'Set GF Speed':
@@ -5095,11 +5094,11 @@ class PlayState extends MusicBeatState
 				char = gf;
 			}
 
-			if(opponentChart && ClientPrefs.charsAndBG) {
+			if(opponentChart) {
 				boyfriend.playAnim(animToPlay, true);
 				boyfriend.holdTimer = 0;
 			}
-			else if(char != null && !opponentChart && ClientPrefs.charsAndBG)
+			else if(char != null && !opponentChart)
 			{
 				char.playAnim(animToPlay, true);
 				char.holdTimer = 0;
@@ -5546,7 +5545,6 @@ class PlayState extends MusicBeatState
 		{
 			gf.dance();
 		}
-		if (ClientPrefs.charsAndBG) {
 		if (curBeat % boyfriend.danceEveryNumBeats == 0 && boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.stunned)
 		{
 			boyfriend.dance();
@@ -5608,7 +5606,6 @@ class PlayState extends MusicBeatState
 		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikeShit();
-		}
 		}
 		lastBeatHit = curBeat;
 
