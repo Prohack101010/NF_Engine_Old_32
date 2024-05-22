@@ -3757,8 +3757,12 @@ class PlayState extends MusicBeatState
 			androidc.y = 720;
 			//androidc.visible = true;
 			#end
-		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
-		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		if (!ClientPrefs.charsAndBG) {
+		openSubState(new PauseSubState(0, 0));
+		}
+		if (ClientPrefs.charsAndBG) {
+		openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+		}
 		//}
 
 		#if desktop
