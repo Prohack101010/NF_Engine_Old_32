@@ -5024,7 +5024,7 @@ class PlayState extends MusicBeatState
 			{
 				for (i in 0...parsedArray.length)
 				{
-					if(parsedArray[i] && strumsBlocked[i] != true && ClientPrefs.charsAndBG)
+					if(parsedArray[i] && strumsBlocked[i] != true)
 						onKeyPress(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, true, -1, keysArray[i][0]));
 				}
 			}
@@ -5127,7 +5127,7 @@ class PlayState extends MusicBeatState
 		
 		if (ClientPrefs.misssoundVolume != 0) FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), ClientPrefs.misssoundVolume);
 
-		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations)
+		if(char != null && !daNote.noMissAnimation && char.hasMissAnimations && ClientPrefs.charsAndBG)
 		{
 			var animToPlay:String = singAnimations[Std.int(Math.abs(daNote.noteData))] + 'miss' + daNote.animSuffix;
 			char.playAnim(animToPlay, true);
@@ -5149,7 +5149,7 @@ class PlayState extends MusicBeatState
 				doDeathCheck(true);
 			}
 
-			if (combo > 5 && gf != null && gf.animOffsets.exists('sad'))
+			if (combo > 5 && gf != null && gf.animOffsets.exists('sad') && ClientPrefs.charsAndBG)
 			{
 				gf.playAnim('sad');
 			}
@@ -5176,7 +5176,7 @@ class PlayState extends MusicBeatState
 
             var char:Character = boyfriend;
 			if (opponentChart) char = dad;
-			if(char.hasMissAnimations) {
+			if(char.hasMissAnimations && ClientPrefs.charsAndBG) {
 				char.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
 		      //boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
 			}
@@ -5198,7 +5198,7 @@ class PlayState extends MusicBeatState
 			char.playAnim('hey', true);
 			char.specialAnim = true;
 			char.heyTimer = 0.6;
-		} else if(!note.noAnimation) {
+		} else if(!note.noAnimation && ClientPrefs.charsAndBG) {
 			var altAnim:String = note.animSuffix;
 
 			if (SONG.notes[curSection] != null)
@@ -5277,7 +5277,7 @@ class PlayState extends MusicBeatState
 				{
 					switch(note.noteType) {
 						case 'Hurt Note': //Hurt note
-							if(boyfriend.animation.getByName('hurt') != null) {
+							if(boyfriend.animation.getByName('hurt') != null && ClientPrefs.charsAndBG) {
 								boyfriend.playAnim('hurt', true);
 								boyfriend.specialAnim = true;
 							}
@@ -5308,7 +5308,7 @@ class PlayState extends MusicBeatState
 			health += note.hitHealth * healthGain;
 
             if (ClientPrefs.charsAndBG) {
-			if(!note.noAnimation) {
+			if(!note.noAnimation && ClientPrefs.charsAndBG) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				
 				var char:Character = boyfriend;
@@ -5487,7 +5487,7 @@ class PlayState extends MusicBeatState
 
 	function trainReset():Void
 	{
-		if(gf != null)
+		if(gf != null && ClientPrefs.charsAndBG)
 		{
 			gf.danced = false; //Sets head to the correct position once the animation ends
 			gf.playAnim('hairFall');
@@ -5510,11 +5510,11 @@ class PlayState extends MusicBeatState
 		lightningStrikeBeat = curBeat;
 		lightningOffset = FlxG.random.int(8, 24);
 
-		if(boyfriend.animOffsets.exists('scared')) {
+		if(boyfriend.animOffsets.exists('scared') && ClientPrefs.charsAndBG) {
 			boyfriend.playAnim('scared', true);
 		}
 
-		if(gf != null && gf.animOffsets.exists('scared')) {
+		if(gf != null && gf.animOffsets.exists('scared') && ClientPrefs.charsAndBG) {
 			gf.playAnim('scared', true);
 		}
 
