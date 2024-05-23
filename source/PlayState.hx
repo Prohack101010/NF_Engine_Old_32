@@ -4922,7 +4922,7 @@ class PlayState extends MusicBeatState
 						}
 
 						// eee jack detection before was not super good
-						if (!notesStopped) {
+						if (!notesStopped && ClientPrefs.charsAndBG) {
 							goodNoteHit(epicNote);
 							pressNotes.push(epicNote);
 						}
@@ -5024,7 +5024,7 @@ class PlayState extends MusicBeatState
 			{
 				for (i in 0...parsedArray.length)
 				{
-					if(parsedArray[i] && strumsBlocked[i] != true)
+					if(parsedArray[i] && strumsBlocked[i] != true && ClientPrefs.charsAndBG)
 						onKeyPress(new KeyboardEvent(KeyboardEvent.KEY_DOWN, true, true, -1, keysArray[i][0]));
 				}
 			}
@@ -5307,6 +5307,7 @@ class PlayState extends MusicBeatState
 			}
 			health += note.hitHealth * healthGain;
 
+            if (ClientPrefs.charsAndBG) {
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				
@@ -5340,6 +5341,7 @@ class PlayState extends MusicBeatState
 						gf.specialAnim = true;
 						gf.heyTimer = 0.6;
 					}
+				}
 				}
 			}
 
