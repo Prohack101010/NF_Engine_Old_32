@@ -4922,7 +4922,7 @@ class PlayState extends MusicBeatState
 						}
 
 						// eee jack detection before was not super good
-						if (!notesStopped && ClientPrefs.charsAndBG) {
+						if (!notesStopped) {
 							goodNoteHit(epicNote);
 							pressNotes.push(epicNote);
 						}
@@ -5198,7 +5198,7 @@ class PlayState extends MusicBeatState
 			char.playAnim('hey', true);
 			char.specialAnim = true;
 			char.heyTimer = 0.6;
-		} else if(!note.noAnimation && ClientPrefs.charsAndBG) {
+		} else if(!note.noAnimation) {
 			var altAnim:String = note.animSuffix;
 
 			if (SONG.notes[curSection] != null)
@@ -5308,7 +5308,7 @@ class PlayState extends MusicBeatState
 			health += note.hitHealth * healthGain;
 
             if (ClientPrefs.charsAndBG) {
-			if(!note.noAnimation && ClientPrefs.charsAndBG) {
+			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 				
 				var char:Character = boyfriend;
