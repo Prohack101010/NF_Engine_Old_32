@@ -1410,15 +1410,6 @@ class FunkinLua {
     			    return true;
                 }
             }
-           
-            if (MusicBeatState.androidc.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.vpad.buttonG.justPressed){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.androidc.vpad.buttonF.justPressed){
-    			    return true;
-                }
-            }
             #end
             
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
@@ -1434,15 +1425,6 @@ class FunkinLua {
     			    return true;
                 }
            }
-            
-           if (MusicBeatState.androidc.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.vpad.buttonG.pressed){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.androidc.vpad.buttonF.pressed){
-    			    return true;
-                }
-           }
            #end
            
 			return Reflect.getProperty(FlxG.keys.pressed, name);
@@ -1455,15 +1437,6 @@ class FunkinLua {
     			    return true;
                 }
                 if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
-    			    return true;
-                }
-           }
-            
-           if (MusicBeatState.androidc.vpad != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.vpad.buttonG.justReleased){
-    			    return true;
-                }                                
-                if (name == 'SHIFT' && MusicBeatState.androidc.vpad.buttonF.justReleased){
     			    return true;
                 }
            }
