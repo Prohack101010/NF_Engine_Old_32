@@ -430,8 +430,8 @@ class PlayState extends MusicBeatState
 		
 		#if android
 		addAndroidControls();
-		androidc.visible = true;
-		androidc.alpha = 0.000001;
+		MusicBeatState.androidc.visible = true;
+		MusicBeatState.androidc.alpha = 0.000001;
 		
 		#end
 
@@ -2339,8 +2339,8 @@ class PlayState extends MusicBeatState
 			return;
 		}
          #if android
-			androidc.visible = true;
-			if (checkHitbox != true) androidc.alpha = 1;
+			MusicBeatState.androidc.visible = true;
+			if (checkHitbox != true) MusicBeatState.androidc.alpha = 1;
 			//
 		 #end
         
@@ -3223,8 +3223,8 @@ class PlayState extends MusicBeatState
 			callOnLuas('onResume', []);
 			
 			#if android
-			androidc.y = 0;
-			//androidc.visible = true;
+			MusicBeatState.androidc.y = 0;
+			//MusicBeatState.androidc.visible = true;
 			#end
 
 			#if desktop
@@ -3870,8 +3870,8 @@ class PlayState extends MusicBeatState
 			vocals.pause();
 		}
 		#if android
-			androidc.y = 720;
-			//androidc.visible = true;
+			MusicBeatState.androidc.y = 720;
+			//MusicBeatState.androidc.visible = true;
 			#end
 		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
 		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -4476,7 +4476,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if android
-		androidc.alpha = 0.00001;
+		MusicBeatState.androidc.alpha = 0.00001;
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
