@@ -1030,8 +1030,9 @@ class FunkinLua {
 			Reflect.getProperty(getInstance(), obj).remove(Reflect.getProperty(getInstance(), obj)[index]);
 		});
 
-		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
+		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String, ?allowMaps:Bool = false) {
 			@:privateAccess
+			var myClass:Dynamic = Type.resolveClass(classVar);
 			var killMe:Array<String> = variable.split('.');
 			
 			#if android // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
@@ -2920,7 +2921,7 @@ class FunkinLua {
 		Reflect.setProperty(instance, variable, value);
 		return true;
 	}
-	public static function getVarInArray(instance:Dynamic, variable:String):Any
+	public static function getVarInArray(instance:Dynamic, variable:String, allowMaps:Bool = false):Any
 	{
 	    #if android //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
 	        var pressCheck:Dynamic;
