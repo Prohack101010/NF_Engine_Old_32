@@ -33,7 +33,7 @@ class MusicBeatState extends FlxUIState
 	private var curDecBeat:Float = 0;
 	private var controls(get, never):Controls;
 	
-	private var checkHitbox:Bool = false;
+	public static var checkHitbox:Bool = false;
 
 	public static var camBeat:FlxCamera;
 
@@ -42,7 +42,7 @@ class MusicBeatState extends FlxUIState
 
 	#if android
 	var _virtualpad:FlxVirtualPad;
-	var androidc:AndroidControls;
+	public static var androidc:AndroidControls;
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
 	#end
@@ -97,6 +97,7 @@ class MusicBeatState extends FlxUIState
 		androidc.visible = false;
 
 		add(androidc);
+		Controls.CheckControl = true;
 	}
 	#end
 

@@ -174,7 +174,7 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		var option:Option = new Option('Chars & BG',
-			'If unchecked, gameplay will only show the HUD',
+			'If unchecked, gameplay will only show the HUD (STILL WIP)',
 			'charsAndBG',
 			'bool',
 			true);
