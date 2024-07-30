@@ -61,7 +61,7 @@ typedef NoteSkinData =
 class VisualsUISubState extends BaseOptionsMenu
 {
 
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{

@@ -54,8 +54,7 @@ class Main extends Sprite
 		super();
 		
         #if mobile
-		var path = #if android Path.addTrailingSlash(SUtil.getStorageDirectory()) #else SUtil.getStorageDirectory() #end;
-		Sys.setCwd(path);
+		Sys.setCwd(SUtil.getStorageDirectory());
 		#end
 
     SUtil.gameCrashCheck();

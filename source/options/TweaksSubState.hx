@@ -67,7 +67,7 @@ class TweaksSubState extends BaseOptionsMenu
     #if android
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(SUtil.getStorageDirectory() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
