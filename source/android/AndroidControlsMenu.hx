@@ -4,6 +4,7 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 // import flixel.ui.FlxButton;
 import android.flixel.FlxButton;
+import android.flixel.FlxButton as FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
