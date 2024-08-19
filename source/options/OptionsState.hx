@@ -53,6 +53,11 @@ class OptionsState extends MusicBeatState
 	    ];
 
 	function openSelectedSubstate(label:String) {
+		if (label != "Adjust Delay and Combo"){
+			removeVirtualPad();
+			persistentUpdate = false;
+		}
+
 		switch(label) {
 			case 'Note Colors':
 				#if android
@@ -177,6 +182,9 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
+		persistentUpdate = true;
 	}
 
 	override function update(elapsed:Float) {
