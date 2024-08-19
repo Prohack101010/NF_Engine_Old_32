@@ -16,7 +16,8 @@ import flixel.group.FlxGroup;
 import android.FlxHitbox;
 import android.FlxNewHitbox;
 import android.FlxVirtualPad;
-import flixel.ui.FlxButton;
+// import flixel.ui.FlxButton;
+import android.flixel.FlxButton;
 import android.flixel.FlxButton as FlxNewButton;
 #end
 
