@@ -4,6 +4,14 @@ import Paths;
 import mobile.backend.*;
 import android.*;
 import android.flixel.*;
+import android.FlxVirtualPad;
+
+#if sys
+import sys.*;
+import sys.io.*;
+#elseif js
+import js.html.*;
+#end
 
 // Android
 #if android
