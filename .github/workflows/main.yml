@@ -1,59 +1,64 @@
-name: Better Android Build
-on: workflow_dispatch
+name: Android
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 jobs:
   Android:
     name: Android
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        storage-type: [EXTERNAL, MEDIA, OBB, DATA]
     steps:
       - name: Checkout
         uses: actions/checkout@main
 
       - name: Setup Android NDK
-        uses: nttld/setup-ndk@main
         id: setup-ndk
+        uses: nttld/setup-ndk@main
         with:
           ndk-version: r21e
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@main
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-
       - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
+        uses: krdlab/setup-haxe@v1.2.0
         with:
-          haxe-version: 4.2.0
+          haxe-version: 4.2.5
 
-      - name: Install Libraries
+      - name: Install Haxelib
         run: |
+          haxelib setup ~/haxelib
           haxelib install hmm --quiet
           haxelib run hmm install --quiet
 
-      - name: Configure Android
+      - name: Setup Lime
         run: |
+          haxelib run lime setup -alias -y
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
-          haxelib run lime config JAVA_HOME $JAVA_HOME
+          haxelib run lime config JAVA_HOME $JAVA_HOME_17_X64
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 7.9.0
-          haxelib set openfl 9.1.0
-          haxelib set flixel 4.11.0
-          haxelib set flixel-addons 2.11.0
-          haxelib set hxcpp 4.2.1
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile
-        run: haxelib run lime build android -D
+        run: haxelib run lime build android -D debug_build -ARM64 -final
 
       - name: Upload Artifact
-        if: ${{ success() }}
         uses: actions/upload-artifact@main
         with:
-          name: androidBuild-${{ matrix.storage-type }}
-          path: export/release/android/bin/app/build/outputs/apk/*/*.apk
-          if-no-files-found: error
+          name: androidBuild
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
+     
+      - name: Uploading new cache
+        uses: actions/cache@v3
+        with:
+          # caching again since for some reason it doesnt work with the first post cache shit
+          key: cache-build-android
+          path: |
+            ~/.gradle
+            .haxelib/
+            export/release/android/haxe/
+            export/release/android/obj/
+          restore-keys: |
+            cache-build-android

@@ -73,10 +73,7 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-#if android
 import flixel.input.actions.FlxActionInput;
-import android.FlxVirtualPad;
-#end
 
 #if VIDEOS_ALLOWED
 import vlc.MP4Handler;

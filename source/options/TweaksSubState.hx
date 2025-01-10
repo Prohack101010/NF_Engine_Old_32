@@ -34,43 +34,20 @@ import lime.app.Application;
 
 using StringTools;
 
-/*
-typedef NoteSkinData =
-{
-	Skin1:String,
-	Skin2:String,
-	Skin3:String,
-	Skin4:String,
-	Skin5:String,
-	Skin6:String,
-	Skin7:String,
-	Skin8:String,
-	Skin9:String,
-	Skin10:String,
-	Skin11:String,
-	Skin12:String,
-	Skin13:String,
-	Skin14:String,
-	Skin15:String,
-	Skin16:String,
-	Skin17:String,
-	Skin18:String,
-	Skin19:String,
-	Skin20:String
-
-}
-*/
-
-
 class TweaksSubState extends BaseOptionsMenu
 {
     #if android
+	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_ONLINE"];
+	var externalPaths:Array<String> = StorageUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
+	    #if android
+	    storageTypes = storageTypes.concat(externalPaths); //SD Card
+	    #end
 		title = 'NF Engine Tweaks Menu';
 		rpcTitle = 'KralOyuncu & NF Engine Tweaks Menu'; //for Discord Rich Presence
         noteSkinList.unshift('original');
@@ -117,7 +94,7 @@ class TweaksSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 		
-		/*
+		/* I can add this very soon
 		var option:Option = new Option('Enable Extra Menu Buttons',
 			"Credits & Mods",
 			'extramenu',
@@ -188,30 +165,43 @@ class TweaksSubState extends BaseOptionsMenu
 		addOption(option);
 		
 		#if android
-		var option:Option = new Option('Storage Type:',
-			"Which folder Psych Engine should use?\n(CHANGING THIS MAKES DELETE YOUR OLD FOLDER!!)",
-			'storageType',
-			'string',
-			'NF_Engine',
-			['MEDIA', 'NF_Engine', 'NovaFlare', 'PsychEngine']);
+		var option:Option = new Option('Storage Type',
+    		'Which folder Psych Engine should use?',
+    		'storageType',
+    		'string',
+    		'EXTERNAL_NF',
+    		storageTypes);
 		addOption(option);
 		#end
 
 		super();
 	}
 	
+	#if android
 	function onStorageChange():Void
 	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
-
-		var lastStoragePath:String = SUtil.StorageType.fromStrForce(lastStorageType) + '/';
+		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.data.storageType);
+	
+		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
+		
+    	try
+    	{
+    		if (lastStorageType != 'EXTERNAL' || lastStorageType != 'EXTERNAL_EX' || lastStorageType != 'EXTERNAL_NF' || lastStorageType != 'EXTERNAL_ONLINE')
+    		Sys.command('rm', ['-rf', lastStoragePath]);
+    	}
+    	catch (e:haxe.Exception)
+    		trace('Failed to remove last directory. (${e.message})');
 	}
+	#end
 	
 	override public function destroy() {
 		super.destroy();
 		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-		    onStorageChange();
+		if (ClientPrefs.data.storageType != lastStorageType) {
+			onStorageChange();
+			ClientPrefs.saveSettings();
+			CoolUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+			lime.system.System.exit(0);
 		}
 		#end
 	}
@@ -219,9 +209,6 @@ class TweaksSubState extends BaseOptionsMenu
 	var changedMusic:Bool = false;
 	function onChangePauseMusic()
 	{
-	
-
-		
 		if(ClientPrefs.pauseMusic == 'None')
 			FlxG.sound.music.volume = 0;
 		else
@@ -236,56 +223,32 @@ class TweaksSubState extends BaseOptionsMenu
 			Main.fpsVar.visible = ClientPrefs.showFPS;
 	}
 	
-	//var Skin:NoteSkinData;
-	// private var grpNote:FlxTypedGroup<FlxSprite>;
-	
 	function onChangeNoteSkin()
 	{
-		
-		//ClientPrefs.NoteSkin = FlxG.save.data.NoteSkin;    
-		
         remove(grpNote);
 		
 		grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
 		
-		//option.showNote = false;
-		
 		for (i in 0...ClientPrefs.arrowHSV.length) {
-				var notes:FlxSprite = new FlxSprite((i * 125), 100);
-				if (ClientPrefs.NoteSkin != 'original')  {
-				notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);
-				}    
-				else{
-				    notes.frames = Paths.getSparrowAtlas('NOTE_assets');
-				}
-				var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
-				notes.animation.addByPrefix('idle', animations[i]);
-				notes.animation.play('idle');
-				//showNotes = notes.visible;
-				notes.scale.set(0.8, 0.8);
-				notes.x += 700;
-				notes.antialiasing = ClientPrefs.globalAntialiasing;
-				grpNote.add(notes);
+			var notes:FlxSprite = new FlxSprite((i * 125), 100);
+			if (ClientPrefs.NoteSkin != 'original') notes.frames = Paths.getSparrowAtlas('NoteSkin/' + ClientPrefs.NoteSkin);   
+			else notes.frames = Paths.getSparrowAtlas('NOTE_assets');
+			
+			var animations:Array<String> = ['purple0', 'blue0', 'green0', 'red0'];
+			notes.animation.addByPrefix('idle', animations[i]);
+			notes.animation.play('idle');
+			//showNotes = notes.visible;
+			notes.scale.set(0.8, 0.8);
+			notes.x += 700;
+			notes.antialiasing = ClientPrefs.globalAntialiasing;
+			grpNote.add(notes);
 				
-				var newShader:ColorSwap = new ColorSwap();
-			    notes.shader = newShader.shader;
-			    newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
-			    newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
-			    newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
-			    
+			var newShader:ColorSwap = new ColorSwap();
+			notes.shader = newShader.shader;
+			newShader.hue = ClientPrefs.arrowHSV[i][0] / 360;
+			newShader.saturation = ClientPrefs.arrowHSV[i][1] / 100;
+			newShader.brightness = ClientPrefs.arrowHSV[i][2] / 100;
 		}
-		
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

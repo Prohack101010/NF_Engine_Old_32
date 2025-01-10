@@ -11,15 +11,7 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 
-#if android
 import flixel.group.FlxGroup;
-import android.FlxHitbox;
-import android.FlxNewHitbox;
-import android.FlxVirtualPad;
-// import flixel.ui.FlxButton;
-import android.flixel.FlxButton;
-import android.flixel.FlxButton as FlxNewButton;
-#end
 
 #if (haxe >= "4.0.0")
 enum abstract Action(String) to String from String
@@ -518,14 +510,14 @@ class Controls extends FlxActionSet
 	
 	
 	//rework later
-	public function addButtonNOTES(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState)
+	public function addButtonNOTES(action:FlxActionDigital, button:FlxButton, state:FlxInputState)
 	{
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedinputsNOTES.push(input);
 		action.add(input);
 	}
 	
-	public function addbuttonUI(action:FlxActionDigital, button:FlxNewButton, state:FlxInputState) {
+	public function addbuttonUI(action:FlxActionDigital, button:FlxButton, state:FlxInputState) {
 		var input = new FlxActionInputDigitalIFlxInput(button, state);
 		trackedinputsUI.push(input);
 		action.add(input);

@@ -58,10 +58,6 @@ import hscript.Expr;
 import Discord;
 #end
 
-#if android
-import android.Hardware;
-#end
-
 using StringTools;
 
 class FunkinLua {
@@ -2410,12 +2406,6 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "changePresence", function(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 			#if desktop
 			DiscordClient.changePresence(details, state, smallImageKey, hasStartTimestamp, endTimestamp);
-			#end
-		});
-
-		Lua_helper.add_callback(lua, "vibration", function(milliseconds:Int) {
-			#if android
-			Hardware.vibrate(milliseconds);
 			#end
 		});
 

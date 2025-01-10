@@ -34,11 +34,7 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-#if android
-import android.flixel.FlxButton;
-#else
-import flixel.ui.FlxButton;
-#end
+import mobile.flixel.FlxButton;
 import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
@@ -3372,7 +3368,7 @@ class ChartingState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
 		{
 			#if android
-			SUtil.saveContent(Paths.formatToSongPath(_song.song) + postfix, ".json", data.trim());
+			StorageUtil.saveContent(Paths.formatToSongPath(_song.song) + postfix, ".json", data.trim());
 			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
@@ -3395,7 +3391,7 @@ class ChartingState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
 		{
 			#if android
-			SUtil.AutosaveContent(Paths.formatToSongPath(_song.song) + postfix, "-autosave.json", data.trim());
+			StorageUtil.saveContent(Paths.formatToSongPath(_song.song) + postfix, "-autosave.json", data.trim(), false);
 			#else
 			_file = new FileReference();
 			//_file.addEventListener(Event.COMPLETE, onSaveComplete);
@@ -3426,7 +3422,7 @@ class ChartingState extends MusicBeatState
 		if ((data != null) && (data.length > 0))
 		{
 			#if android
-			SUtil.saveContent("events", ".json", data.trim());
+			StorageUtil.saveContent("events", ".json", data.trim());
 			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);

@@ -22,8 +22,6 @@ import flixel.addons.ui.FlxUI;
 
 #if android
 import flixel.input.actions.FlxActionInput;
-import android.AndroidControls.AndroidControls;
-import android.FlxVirtualPad;
 #end
 /*
 THIS IS AN EDIT OF FlxUIDropDownMenu I'VE MADE BECAUSE I'M TIRED OF IT NOT SUPPORTING SCROLLING UP/DOWN
@@ -40,13 +38,11 @@ The differences are the following:
  */
 class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget implements IFlxUIClickable implements IHasParams
 {
-    
-    
  
-function getVirtualPad():FlxVirtualPad {
-  for (th in FlxG.state) if (th is FlxVirtualPad) return cast(th, FlxVirtualPad);
-  return null;
-}
+    function getVirtualPad():FlxVirtualPad {
+      for (th in FlxG.state) if (th is FlxVirtualPad) return cast(th, FlxVirtualPad);
+      return null;
+    }
     
 	public var skipButtonUpdate(default, set):Bool;
 

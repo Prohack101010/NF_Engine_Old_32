@@ -54,10 +54,13 @@ class Main extends Sprite
 		super();
 		
         #if mobile
-		Sys.setCwd(SUtil.getStorageDirectory());
+		#if android
+		StorageUtil.requestPermissions();
 		#end
-
-    SUtil.gameCrashCheck();
+		Sys.setCwd(StorageUtil.getStorageDirectory());
+		#end
+		CrashHandler.init();
+		
 		if (stage != null)
 		{
 			init();
@@ -91,8 +94,6 @@ class Main extends Sprite
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-	
-			SUtil.doTheCheck();
 	
 		ClientPrefs.loadDefaultKeys();
 		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate, game.skipSplash, game.startFullscreen));
