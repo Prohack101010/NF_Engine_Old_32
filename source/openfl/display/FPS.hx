@@ -6,6 +6,7 @@ import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
 import flixel.util.FlxTimer;
+import flixel.FlxG;
 
 import openfl.utils.Assets;
 
