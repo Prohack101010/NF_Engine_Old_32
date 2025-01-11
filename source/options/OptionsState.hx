@@ -215,10 +215,12 @@ class OptionsState extends MusicBeatState
 		}
 		if (_virtualpad.buttonY.justPressed) {
 			removeVirtualPad();
+			persistentUpdate = false;
 			openSubState(new android.HitboxSettingsSubState());
 		}
 		if (_virtualpad.buttonZ.justPressed) {
 			removeVirtualPad();
+			persistentUpdate = false;
 			openSubState(new options.TweaksSubState());
 		}
 		#end
