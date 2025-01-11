@@ -207,24 +207,6 @@ class OptionsState extends MusicBeatState
 			}
 		}
 
-		#if android
-		if (_virtualpad.buttonX.justPressed) {
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxTransitionableState.skipNextTransOut = true;
-			MusicBeatState.switchState(new android.AndroidControlsMenu());
-		}
-		if (_virtualpad.buttonY.justPressed) {
-			removeVirtualPad();
-			persistentUpdate = false;
-			openSubState(new android.HitboxSettingsSubState());
-		}
-		if (_virtualpad.buttonZ.justPressed) {
-			removeVirtualPad();
-			persistentUpdate = false;
-			openSubState(new options.TweaksSubState());
-		}
-		#end
-
 		if (controls.ACCEPT) {
 			openSelectedSubstate(options[curSelected]);
 		}

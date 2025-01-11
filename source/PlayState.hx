@@ -424,13 +424,6 @@ class PlayState extends MusicBeatState
 
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 		CustomFadeTransition.nextCamera = camOther;
-		
-		#if android
-		addAndroidControls();
-		MusicBeatState.androidc.visible = true;
-		MusicBeatState.androidc.alpha = 0.000001;
-		
-		#end
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1427,11 +1420,12 @@ class PlayState extends MusicBeatState
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
-		if (ClientPrefs.hudType == 'Kade Engine') {
-		EngineWatermark.cameras = [camHUD];
-		}
+		if (ClientPrefs.hudType == 'Kade Engine')
+		    EngineWatermark.cameras = [camHUD];
 
-		
+		addMobileControls();
+    	MusicBeatState.mobilec.visible = false;
+    	if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) MusicBeatState.mobilec.alpha = 0.000001;
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -2335,16 +2329,13 @@ class PlayState extends MusicBeatState
 			callOnLuas('onStartCountdown', []);
 			return;
 		}
-         #if android
-			MusicBeatState.androidc.visible = true;
-			if (checkHitbox != true) MusicBeatState.androidc.alpha = 1;
-			//
-		 #end
         
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
+			MusicBeatState.mobilec.visible = true;
+    		if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha; //better for pc build
 			
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3218,11 +3209,6 @@ class PlayState extends MusicBeatState
 			}
 			paused = false;
 			callOnLuas('onResume', []);
-			
-			#if android
-			MusicBeatState.androidc.y = 0;
-			//MusicBeatState.androidc.visible = true;
-			#end
 
 			#if desktop
 			if (startTimer != null && startTimer.finished)
@@ -3866,10 +3852,6 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
-		#if android
-			MusicBeatState.androidc.y = 720;
-			//MusicBeatState.androidc.visible = true;
-			#end
 		if (!ClientPrefs.charsAndBG) openSubState(new PauseSubState(0, 0));
 		if (ClientPrefs.charsAndBG) openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 		//}
@@ -4472,9 +4454,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		#if android
-		MusicBeatState.androidc.alpha = 0.00001;
-		#end
+        MusicBeatState.mobilec.visible = false;
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;

@@ -393,14 +393,6 @@ class MainMenuState extends MusicBeatState
 			    MusicBeatState.switchState(new options.OptionsState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
-				
-			else if (_virtualpad.buttonD.justPressed)
-			{
-				selectedSomethin = true;
-		        FlxTransitionableState.skipNextTransIn = true;
-			    FlxTransitionableState.skipNextTransOut = true;
-			    MusicBeatState.switchState(new android.AndroidControlsMenu());
-			}
 			
 			#if (desktop || android)
 			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)

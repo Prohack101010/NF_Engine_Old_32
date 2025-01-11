@@ -1,13 +1,10 @@
-package android;
+package mobile.flixel;
 
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
 import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
-// import flixel.ui.FlxButton;
-import android.flixel.FlxButton;
-
 import flixel.FlxSprite;
 
 class FlxHitbox extends FlxSpriteGroup {
@@ -38,7 +35,7 @@ class FlxHitbox extends FlxSpriteGroup {
 		hitbox.add(add(buttonUp = createhitbox(640, 0, "up")));
 		hitbox.add(add(buttonRight = createhitbox(960, 0, "right")));
 
-		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('androidcontrols/hitbox_hint'));
+		var hitbox_hint:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image('mobilecontrols/hitbox/hitbox_hint'));
 		hitbox_hint.antialiasing = orgAntialiasing;
 		hitbox_hint.alpha = orgAlpha;
 		add(hitbox_hint);
@@ -56,7 +53,7 @@ class FlxHitbox extends FlxSpriteGroup {
 	}
 
 	public function getFrames():FlxAtlasFrames {
-		return Paths.getSparrowAtlas('androidcontrols/hitbox');
+		return Paths.getSparrowAtlas('mobilecontrols/hitbox/hitbox');
 	}
 
 	override public function destroy():Void {

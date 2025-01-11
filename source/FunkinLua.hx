@@ -1028,33 +1028,7 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String, ?allowMaps:Bool = false) {
 			@:privateAccess
-			var myClass:Dynamic = Type.resolveClass(classVar);
-			var killMe:Array<String> = variable.split('.');
-			
-			#if android // Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-           if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justPressed){
-    			    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.pressed){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
-                    return FunkinLua.getVarInArray(myClass, variable, allowMaps);
-                }
-           }
-           #end
-           
+			var killMe:Array<String> = variable.split('.');         
 			if(killMe.length > 1) {
 				var coverMeInPiss:Dynamic = getVarInArray(Type.resolveClass(classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
@@ -1423,47 +1397,14 @@ class FunkinLua {
 
 		Lua_helper.add_callback(lua, "keyboardJustPressed", function(name:String)
 		{
-		    #if android // Extend for check control for android
-            if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justPressed){
-    			    return true;
-                }
-            }
-            #end
-            
 			return Reflect.getProperty(FlxG.keys.justPressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardPressed", function(name:String)
 		{
-		    #if android // Extend for check control for android
-           if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.pressed){
-    			    return true;
-                }
-           }
-           #end
-           
 			return Reflect.getProperty(FlxG.keys.pressed, name);
 		});
 		Lua_helper.add_callback(lua, "keyboardReleased", function(name:String)
 		{
-		    #if android // Extend for check control for android
-           if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
-			    if (name == 'SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
-    			    return true;
-                }
-                if (name == 'SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
-    			    return true;
-                }
-           }
-           #end
-           
 			return Reflect.getProperty(FlxG.keys.justReleased, name);
 		});
 
@@ -2913,37 +2854,6 @@ class FunkinLua {
 	}
 	public static function getVarInArray(instance:Dynamic, variable:String, allowMaps:Bool = false):Any
 	{
-	    #if android //Extend for check control for android,you can try to extend other key at same way but I'm so lazy. --Write by NF|beihu(北狐丶逐梦)
-	        var pressCheck:Dynamic;
-	        if (MusicBeatState.androidc.newhbox != null){ //check for android control and dont check for keyboard
-			    if (variable == 'keys.justPressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SPACE' && MusicBeatState.androidc.newhbox.buttonSpace.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                
-                if (variable == 'keys.justPressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justPressed){
-    			    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.pressed.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.pressed){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-                else if (variable == 'keys.justReleased.SHIFT' && MusicBeatState.androidc.newhbox.buttonShift.justReleased){
-                    pressCheck = true;
-                    return pressCheck;
-                }
-            }
-        #end
-        
 		var shit:Array<String> = variable.split('[');
 		if(shit.length > 1)
 		{

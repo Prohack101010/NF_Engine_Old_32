@@ -7,6 +7,24 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
+	public static var wideScreen:Bool = false;
+	#if android
+	public static var storageType:String = "EXTERNAL_DATA";
+	#end
+	public static var virtualpadType:String = "New";
+	public static var VirtualPadAlpha:Float = #if mobile 0.6 #else 0 #end;
+	public static var extraKeyReturn1:String = 'SHIFT';
+    public static var extraKeyReturn2:String = 'SPACE';
+    public static var extraKeyReturn3:String = 'Q';
+    public static var extraKeyReturn4:String = 'E';
+	public static var hitboxhint:Bool = false;
+	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
+	public static var hitboxtype:String = 'Gradient';
+	public static var extraKeys:Int = 2;
+	public static var hitboxLocation:String = 'Bottom';
+	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end; //someone request this lol
+
+
 	public static var downScroll:Bool = true;
 	public static var middleScroll:Bool = true;
 	public static var betterMidScroll:Bool = false;
@@ -48,20 +66,12 @@ class ClientPrefs {
 	public static var fasterChartLoad:Bool = false;
 	public static var showComboNum = true;
 	public static var showRating = true;
-	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	#if android public static var storageType:String = 'EXTERNAL_DATA'; #end
     
-    public static var hitboxExtend:Int = 0;
     public static var fixopponentplay = true;
     public static var ezSpam:Bool = false;
     //public static var extramenu:Bool = false;
     public static var dynamicSpawnTime:Bool = false;
     public static var noteSpawnTime:Float = 1;
-	//public static var hitboxExtend = true;
-	public static var hitboxLocation:String = 'Top';
-	public static var hitboxalpha:Float = 0; //someone request this lol
-	public static var VirtualPadAlpha:Float = 0.75;
-	public static var VirtualPadSPACE:Array<Float> = [FlxG.width - 44 * 3, FlxG.height - 45 * 3];
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -145,6 +155,21 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.wideScreen = wideScreen;
+		FlxG.save.data.virtualpadType = virtualpadType;
+		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
+		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
+		FlxG.save.data.extraKeyReturn1 = extraKeyReturn1;
+		FlxG.save.data.extraKeyReturn2 = extraKeyReturn2;
+		FlxG.save.data.extraKeyReturn3 = extraKeyReturn3;
+		FlxG.save.data.extraKeyReturn4 = extraKeyReturn4;
+		FlxG.save.data.hitboxhint = hitboxhint;
+		FlxG.save.data.hitboxmode = hitboxmode;
+		FlxG.save.data.hitboxtype = hitboxtype;
+		FlxG.save.data.extraKeys = extraKeys;
+		FlxG.save.data.hitboxLocation = hitboxLocation;
+		FlxG.save.data.hitboxalpha = hitboxalpha;
+		
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.betterMidScroll = betterMidScroll;
@@ -194,16 +219,9 @@ class ClientPrefs {
 		FlxG.save.data.comboStacking = comboStacking;
 		FlxG.save.data.showRating = showRating;
 		FlxG.save.data.showComboNum = showComboNum;
-		FlxG.save.data.hitboxmode = hitboxmode;
 		FlxG.save.data.storageType = storageType;
 		FlxG.save.data.charsAndBG = charsAndBG;
 		FlxG.save.data.fasterChartLoad = fasterChartLoad;
-		FlxG.save.data.hitboxalpha = hitboxalpha;
-		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
-		FlxG.save.data.VirtualPadSPACE = VirtualPadSPACE;
-	    FlxG.save.data.hitboxExtend = hitboxExtend;
-	    FlxG.save.data.hitboxLocation = hitboxLocation;
-	        // new extend
 	        
 	    FlxG.save.data.botLightStrum = botLightStrum;
 		FlxG.save.data.opponentLightStrum = opponentLightStrum;
@@ -334,9 +352,6 @@ class ClientPrefs {
 		if(FlxG.save.data.comboOffset != null) {
 			comboOffset = FlxG.save.data.comboOffset;
 		}
-		if(FlxG.save.data.VirtualPadSPACE != null) {
-			VirtualPadSPACE = FlxG.save.data.VirtualPadSPACE;
-		}
 		if(FlxG.save.data.ratingOffset != null) {
 			ratingOffset = FlxG.save.data.ratingOffset;
 		}
@@ -364,23 +379,8 @@ class ClientPrefs {
 		if(FlxG.save.data.misssoundVolume != null) {
 			misssoundVolume = FlxG.save.data.misssoundVolume;
 		}
-		if(FlxG.save.data.hitboxmode != null) {
-			hitboxmode = FlxG.save.data.hitboxmode;
-		}
 		if(FlxG.save.data.storageType != null) {
 			storageType = FlxG.save.data.storageType;
-		}
-		if(FlxG.save.data.hitboxLocation != null) {
-			hitboxLocation = FlxG.save.data.hitboxLocation;
-		}
-		if(FlxG.save.data.hitboxExtend != null) {
-			hitboxExtend = FlxG.save.data.hitboxExtend;
-		}
-		if(FlxG.save.data.hitboxalpha != null) {
-			hitboxalpha = FlxG.save.data.hitboxalpha;
-		}
-		if(FlxG.save.data.VirtualPadAlpha != null) {
-			VirtualPadAlpha = FlxG.save.data.VirtualPadAlpha;
 		}
 		if(FlxG.save.data.oppNoteAlpha != null) {
 			oppNoteAlpha = FlxG.save.data.oppNoteAlpha;

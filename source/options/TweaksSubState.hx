@@ -31,24 +31,15 @@ import haxe.io.Path;
 import sys.FileSystem;
 import sys.io.File;
 import lime.app.Application;
-import mobile.backend.StorageUtil;
 
 using StringTools;
 
 class TweaksSubState extends BaseOptionsMenu
 {
-    #if android
-	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_PE", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_ONLINE"];
-	var externalPaths:Array<String> = StorageUtil.checkExternalPaths(true);
-	final lastStorageType:String = ClientPrefs.storageType;
-	#end
     var noteSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
-	    #if android
-	    storageTypes = storageTypes.concat(externalPaths); //SD Card
-	    #end
 		title = 'NF Engine Tweaks Menu';
 		rpcTitle = 'KralOyuncu & NF Engine Tweaks Menu'; //for Discord Rich Presence
         noteSkinList.unshift('original');
@@ -164,47 +155,8 @@ class TweaksSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-		
-		#if android
-		var option:Option = new Option('Storage Type',
-    		'Which folder Psych Engine should use?',
-    		'storageType',
-    		'string',
-    		'EXTERNAL_DATA',
-    		storageTypes);
-		addOption(option);
-		#end
 
 		super();
-	}
-	
-	#if android
-	function onStorageChange():Void
-	{
-		File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', ClientPrefs.storageType);
-	
-		var lastStoragePath:String = StorageType.fromStrForce(lastStorageType) + '/';
-		
-    	try
-    	{
-    		if (lastStorageType != 'EXTERNAL' || lastStorageType != 'EXTERNAL_EX' || lastStorageType != 'EXTERNAL_PE' || lastStorageType != 'EXTERNAL_ONLINE')
-    		Sys.command('rm', ['-rf', lastStoragePath]);
-    	}
-    	catch (e:haxe.Exception)
-    		trace('Failed to remove last directory. (${e.message})');
-	}
-	#end
-	
-	override public function destroy() {
-		super.destroy();
-		#if android
-		if (ClientPrefs.storageType != lastStorageType) {
-			onStorageChange();
-			ClientPrefs.saveSettings();
-			CoolUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
-			lime.system.System.exit(0);
-		}
-		#end
 	}
 
 	var changedMusic:Bool = false;
