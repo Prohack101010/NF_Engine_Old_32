@@ -1,17 +1,24 @@
 import Paths;
 
-//Mobile Things
-import mobile.backend.*;
-import android.*;
-import android.flixel.*;
-import android.FlxVirtualPad;
-
 #if sys
 import sys.*;
 import sys.io.*;
 #elseif js
 import js.html.*;
 #end
+
+// Mobile Things
+import mobile.flixel.*;
+import mobile.states.*;
+import mobile.objects.*;
+import mobile.options.*;
+import mobile.backend.*;
+import mobile.psychlua.*;
+import mobile.substates.*;
+import mobile.backend.Data;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxVirtualPad;
+import mobile.flixel.FlxNewHitbox;
 
 // Android
 #if android
@@ -25,5 +32,31 @@ import android.os.Environment as AndroidEnvironment;
 import android.os.BatteryManager as AndroidBatteryManager;
 import android.os.Build.VERSION_CODES as AndroidVersionCode;
 #end
+
+// Lua
+#if LUA_ALLOWED
+import llua.*;
+import llua.Lua;
+#end
+
+//Flixel
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxCamera;
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
+import flixel.util.FlxTimer;
+import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.tweens.FlxEase;
+import flixel.system.FlxSound;
+import flixel.util.FlxDestroyUtil;
+import flixel.tweens.FlxTween;
+import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.frames.FlxAtlasFrames;
+
+import openfl.display3D.textures.RectangleTexture;
 
 using StringTools;
