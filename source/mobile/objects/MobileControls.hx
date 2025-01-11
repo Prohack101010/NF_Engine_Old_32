@@ -151,7 +151,7 @@ class MobileControls extends FlxSpriteGroup {
 				add(vpad);		
 				vpad = extendConfig.loadcustom(vpad);
 			case 4:
-				hbox = new FlxHitbox(0.75, ClientPrefs.antialiasing);
+				hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
 				add(hbox);
 			case 5:
 			  newhbox = new FlxNewHitbox();

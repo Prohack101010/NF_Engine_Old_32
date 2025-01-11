@@ -67,7 +67,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
             FlxColor.fromRGB(FlxG.random.int(0, 255), FlxG.random.int(0, 255), FlxG.random.int(0, 255))));
         bg.velocity.set(40, 40);
         bg.alpha = 0;
-        bg.antialiasing = ClientPrefs.antialiasing;
+        bg.antialiasing = ClientPrefs.globalAntialiasing;
         FlxTween.tween(bg, {alpha: 0.45}, 0.3, {
             ease: FlxEase.quadOut,
             onComplete: (twn:FlxTween) ->
@@ -99,7 +99,7 @@ class MobileControlSelectSubState extends MusicBeatSubstate
         vpad.cameras = [ui];
         add(vpad);
 
-        hbox = new FlxHitbox(0.75, ClientPrefs.antialiasing);
+        hbox = new FlxHitbox(0.75, ClientPrefs.globalAntialiasing);
         hbox.visible = false;
         hbox.cameras = [ui];
         add(hbox);

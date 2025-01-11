@@ -234,7 +234,7 @@ class ChooseButton extends FlxSpriteGroup
 	
 	    titleObject = new FlxText(0, 0, width, title);
 		titleObject.setFormat("VCR OSD Mono", 20, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		titleObject.antialiasing = ClientPrefs.antialiasing;
+		titleObject.antialiasing = ClientPrefs.globalAntialiasing;
 		titleObject.borderSize = 2;
 		titleObject.x = bg.width / 2 - titleObject.width / 2;
 		titleObject.y = bg.height / 2 - titleObject.height / 2;
@@ -243,7 +243,7 @@ class ChooseButton extends FlxSpriteGroup
 		if (extendTitle != null){ 
     		extendTitleObject = new FlxText(0, 0, width, extendTitle);
     		extendTitleObject.setFormat("VCR OSD Mono", 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-    		extendTitleObject.antialiasing = ClientPrefs.antialiasing;
+    		extendTitleObject.antialiasing = ClientPrefs.globalAntialiasing;
     		extendTitleObject.borderSize = 2;
     		extendTitleObject.x = bg.width / 2 - extendTitleObject.width / 2;
 		    extendTitleObject.y = 30;

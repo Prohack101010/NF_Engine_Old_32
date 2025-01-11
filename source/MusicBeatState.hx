@@ -73,21 +73,16 @@ class MusicBeatState extends FlxUIState
 	
 	public function addMobileControls(?mode:Null<String>) {
 		mobilec = new MobileControls();
-		PlayState.MobileCType = 'DEFAULT';
 		
 		switch (mode.toLowerCase())
 		{
 		    case 'normal':
-				PlayState.MobileCType = 'NORMAL';
 				mobilec.visible = true;
 			case 'shift':
-			    PlayState.MobileCType = 'SHIFT';
 			    mobilec.visible = true;
 			case 'space':
-				PlayState.MobileCType = 'SPACE';
 				mobilec.visible = true;
 			case 'both':
-				PlayState.MobileCType = 'BOTH';
 				mobilec.visible = true;
 			default:
 				// do nothing
