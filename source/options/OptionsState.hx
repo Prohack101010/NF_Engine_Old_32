@@ -60,30 +60,17 @@ class OptionsState extends MusicBeatState
 
 		switch(label) {
 			case 'Note Colors':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.NotesSubState());
 			case 'Controls':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.GraphicsSettingsSubState());
 			case 'Visuals and UI':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.VisualsUISubState());
 			case 'Gameplay':
-				#if android
-				removeVirtualPad();
-				#end
 				openSubState(new options.GameplaySettingsSubState());
+			case 'Tweaks':
+				openSubState(new options.TweaksSubState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -129,12 +116,6 @@ class OptionsState extends MusicBeatState
 			tipText.scrollFactor.set();
 			tipText.antialiasing = ClientPrefs.globalAntialiasing;
 			add(tipText);
-			tipText = new FlxText(150, FlxG.height - 64, 0, 'Press Z to Go In NF Tweaks Menu', 16);
-			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.borderSize = 1.25;
-			tipText.scrollFactor.set();
-			tipText.antialiasing = ClientPrefs.globalAntialiasing;
-			add(tipText);
 		#end	
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);	
@@ -173,7 +154,7 @@ class OptionsState extends MusicBeatState
 		ClientPrefs.saveSettings();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
+		addVirtualPad(UP_DOWN, A_B_X_Y);
 		#end
 
 		super.create();
@@ -183,7 +164,7 @@ class OptionsState extends MusicBeatState
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
+		addVirtualPad(UP_DOWN, A_B_X_Y);
 		persistentUpdate = true;
 	}
 

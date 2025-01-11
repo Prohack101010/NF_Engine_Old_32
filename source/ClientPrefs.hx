@@ -157,7 +157,6 @@ class ClientPrefs {
 	public static function saveSettings() {
 		FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.virtualpadType = virtualpadType;
-		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
 		FlxG.save.data.VirtualPadAlpha = VirtualPadAlpha;
 		FlxG.save.data.extraKeyReturn1 = extraKeyReturn1;
 		FlxG.save.data.extraKeyReturn2 = extraKeyReturn2;
