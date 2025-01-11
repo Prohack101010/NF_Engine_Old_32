@@ -200,7 +200,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Sys.getCwd() + 'assets/videos/$key.$VIDEO_EXT';
+		return 'assets/videos/$key.$VIDEO_EXT';
 	}
 
 	static public function sound(key:String, ?library:String):Sound
@@ -253,19 +253,19 @@ class Paths
 		if (!ignoreMods && FileSystem.exists(modFolders(key)))
 			return File.getContent(modFolders(key));
 
-		if (FileSystem.exists(Sys.getCwd() + getPreloadPath(key)))
-			return File.getContent(Sys.getCwd() + getPreloadPath(key));
+		if (FileSystem.exists(getPreloadPath(key)))
+			return File.getContent(getPreloadPath(key));
 
 		if (currentLevel != null)
 		{
 			var levelPath:String = '';
 			if(currentLevel != 'shared') {
-				levelPath = Sys.getCwd() + getLibraryPathForce(key, currentLevel);
+				levelPath = getLibraryPathForce(key, currentLevel);
 				if (FileSystem.exists(levelPath))
 					return File.getContent(levelPath);
 			}
 
-			levelPath = Sys.getCwd() + getLibraryPathForce(key, 'shared');
+			levelPath = getLibraryPathForce(key, 'shared');
 			if (FileSystem.exists(levelPath))
 				return File.getContent(levelPath);
 		}
@@ -281,7 +281,7 @@ class Paths
 			return file;
 		}
 		#end
-		return Sys.getCwd() + 'assets/fonts/$key';
+		return 'assets/fonts/$key';
 	}
 
 	inline static public function fileExists(key:String, type:AssetType, ?ignoreMods:Bool = false, ?library:String)
@@ -382,7 +382,7 @@ class Paths
 		}
 		#end
 		// I hate this so god damn much
-		var gottenPath:String = Sys.getCwd() + getPath('$path/$key.$SOUND_EXT', SOUND, library);
+		var gottenPath:String = getPath('$path/$key.$SOUND_EXT', SOUND, library);
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
@@ -472,7 +472,7 @@ class Paths
 	static public function pushGlobalMods() // prob a better way to do this but idc
 	{
 		globalMods = [];
-		var path:String = Sys.getCwd() + 'modsList.txt';
+		var path:String = 'modsList.txt';
 		if(FileSystem.exists(path))
 		{
 			var list:Array<String> = CoolUtil.coolTextFile(path);

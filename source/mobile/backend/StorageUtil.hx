@@ -156,11 +156,11 @@ class StorageUtil
 enum abstract StorageType(String) from String to String
 {
     final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.kraloyuncu.psychextended';
+	final packageNameLocal = 'com.kraloyuncu.nfengine063modified';
 	final fileLocalONLINE = 'PsychOnline';
 	final fileLocal = 'PsychEngine';
 	final fileLocalNF = 'NF Engine';
-	final fileLocalEX = 'Psych Extended'; //idk why
+	final fileLocalEX = 'Psych Extended'; //Fun Fact: Psych Extended v1.0.2 is officially cancelled because everything is done
 
 	var EXTERNAL_DATA = "EXTERNAL_DATA";
 	var EXTERNAL_OBB = "EXTERNAL_OBB";
@@ -169,7 +169,6 @@ enum abstract StorageType(String) from String to String
 	var EXTERNAL_ONLINE = "EXTERNAL_ONLINE";
 	var EXTERNAL_NF = "EXTERNAL_NF";
 	var EXTERNAL_EX = "EXTERNAL_EX";
-	var EXTERNAL_PE = "EXTERNAL_PE";
 
 	public static function fromStr(str:String):StorageType
 	{

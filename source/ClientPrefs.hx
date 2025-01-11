@@ -49,7 +49,7 @@ class ClientPrefs {
 	public static var showComboNum = true;
 	public static var showRating = true;
 	public static var hitboxmode:String = 'New';  //starting new way to change between hitboxes yay
-	#if android public static var storageType:String = 'NF_Engine'; #end
+	#if android public static var storageType:String = 'EXTERNAL_DATA'; #end
     
     public static var hitboxExtend:Int = 0;
     public static var fixopponentplay = true;

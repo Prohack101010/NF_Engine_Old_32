@@ -42,7 +42,7 @@ class TweaksSubState extends BaseOptionsMenu
 	var externalPaths:Array<String> = StorageUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
-    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Sys.getCwd() + Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
+    var noteSkinList:Array<String> = CoolUtil.coolTextFile(Paths.getPreloadPath('images/NoteSkin/DataSet/noteSkinList.txt'));
         
 	public function new()
 	{
@@ -170,7 +170,7 @@ class TweaksSubState extends BaseOptionsMenu
     		'Which folder Psych Engine should use?',
     		'storageType',
     		'string',
-    		'EXTERNAL_NF',
+    		'EXTERNAL_DATA',
     		storageTypes);
 		addOption(option);
 		#end
