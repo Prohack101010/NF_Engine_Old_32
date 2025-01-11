@@ -20,7 +20,7 @@
     {
       "name": "extension-androidtools",
       "type": "git",
-      "ref": "main",
+      "ref": "8c1304bbac73d9ff6269cef0979a8e04493b3f3e",
       "url": "https://github.com/MAJigsaw77/extension-androidtools"
     },
     {
@@ -58,7 +58,7 @@
     {
       "name": "lime",
       "type": "git",
-      "ref": "develop",
+      "ref": "bb7f84595af862dd448205c1f217f96b1b85d193",
       "url": "https://github.com/mcagabe19-stuff/lime-8.1.3"
     },
     {
