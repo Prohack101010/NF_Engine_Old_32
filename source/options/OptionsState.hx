@@ -183,7 +183,7 @@ class OptionsState extends MusicBeatState
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
 		persistentUpdate = true;
 	}
 

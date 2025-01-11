@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="NF Engine 0.6.3 Modified" file="PsychEngine" packageName="com.kraloyuncu.nfengine063modified" package="com.kraloyuncu.nfengine063modified" main="Main" version="1.0.1" company="KralOyuncu" />
+	<app title="NF Engine 0.6.3 Modified" file="NF Engine" packageName="com.kraloyuncu.nfengine063modified" package="com.kraloyuncu.nfengine063modified" main="Main" version="1.0.1" company="KralOyuncu" />
 
 	<!--Switch Export with Unique ApplicationID and Icon-->
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
@@ -30,7 +30,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="1280" height="720" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -50,6 +50,7 @@
 	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE WATERMARKS/DEV NAMES ON TITLE SCREEN -->
 	<define name="TITLE_SCREEN_EASTER_EGG" if="officialBuild"/> <!-- DELETE THE if="officialBuild" for enabling this on an unofficial build -->
 	<define name="CRASH_HANDLER" if="desktop release || mobile" />
+	<architecture name="ARM64" exclude="ARMV7" if="32bits_disabled" /> <!-- Only Arm64 Build Because I dont want to wait 30 minute -->
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3"  unless="web"/>
