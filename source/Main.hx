@@ -118,14 +118,12 @@ class Main extends Sprite
 
 		// shader coords fix
 		FlxG.signals.gameResized.add(function (w, h) {
-			if(fpsVarNF != null)
-				fpsVarNF.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
-			else if(fpsVar != null)
+			if(fpsVar != null)
 				fpsVar.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
 				
 		    if (FlxG.cameras != null) {
 			  for (cam in FlxG.cameras.list) {
-				if (cam != null && cam.filters != null)
+				if (cam != null)
 				  resetSpriteCache(cam.flashSprite);
 			  }
 			}
@@ -146,6 +144,13 @@ class Main extends Sprite
 			});
 		}
 		#end
+	}
+	
+	static function resetSpriteCache(sprite:Sprite):Void {
+		@:privateAccess {
+		        sprite.__cacheBitmap = null;
+			sprite.__cacheBitmapData = null;
+		}
 	}
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
