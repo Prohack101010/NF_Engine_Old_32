@@ -34,7 +34,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay'];
+	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay', 'Tweaks'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -103,20 +103,28 @@ class OptionsState extends MusicBeatState
 		bgMove.velocity.set(FlxG.random.bool(50) ? 90 : -90, FlxG.random.bool(50) ? 90 : -90);
 		//bgMove.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bgMove);
+		
 		#if android
-		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press X to Go In Android Controls Menu', 16);
-			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.borderSize = 1.25;
-			tipText.scrollFactor.set();
-			tipText.antialiasing = ClientPrefs.globalAntialiasing;
-			add(tipText);
-			tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
-			tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-			tipText.borderSize = 1.25;
-			tipText.scrollFactor.set();
-			tipText.antialiasing = ClientPrefs.globalAntialiasing;
-			add(tipText);
+		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press X to Go In Mobile Controls Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
+		tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Mobile Options Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
+		tipText = new FlxText(150, FlxG.height - 64, 0, 'Press E to Go In Extra Key Return Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
 		#end	
+		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);	
 
@@ -136,25 +144,11 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		/* #if android
-		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		var tipText:FlxText = new FlxText(10, 32, 0, 'Press Y to Go In Hitbox Settings Menu', 16);
-		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 2;
-		tipText.scrollFactor.set();
-		add(tipText);
-		#end 
-		*/
-
 		changeSelection();
 		ClientPrefs.saveSettings();
 
 		#if android
-		addVirtualPad(UP_DOWN, A_B_X_Y);
+		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
 		#end
 
 		super.create();
@@ -164,18 +158,35 @@ class OptionsState extends MusicBeatState
 		super.closeSubState();
 		ClientPrefs.saveSettings();
 		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B_X_Y);
+		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
 		persistentUpdate = true;
 	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
+		if (controls.UI_UP_P)
 			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
+
+		if (controls.UI_DOWN_P)
 			changeSelection(1);
+
+		if (_virtualpad.buttonX.justPressed) {
+		    removeVirtualPad();
+			persistentUpdate = false;
+		    openSubState(new MobileControlSelectSubState());
+		}
+
+		if (_virtualpad.buttonY.justPressed) {
+		    removeVirtualPad();
+			persistentUpdate = false;
+		    openSubState(new MobileOptionsSubState());
+		}
+
+		if (_virtualpad.buttonZ.justPressed) {
+		    removeVirtualPad();
+			persistentUpdate = false;
+		    openSubState(new MobileExtraControl());
 		}
 
 		if (controls.BACK) {
