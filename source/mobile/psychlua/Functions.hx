@@ -17,6 +17,16 @@ class MobileFunctions
 		{
 			MusicBeatState.mobilec.visible = enabled;
 		});
+		
+		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
+		{
+			CoolUtil.showPopUp(message, title);
+		});
+		    
+		Lua_helper.add_callback(lua, "CloseGame", function():Void
+		{
+			lime.system.System.exit(1);
+		});
 
         #if mobile
 		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)

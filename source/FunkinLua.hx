@@ -2909,27 +2909,9 @@ class FunkinLua {
 			return list;
 		});
 		
-		//Extra Lua Functions From Psych Extended
-		Lua_helper.add_callback(lua, "saveScore", function():Void
-		{
-			PlayState.instance.saveScore();
-		});
+		#if android AndroidFunctions.implement(this); #end
+		MobileFunctions.implement(this);
 		
-		Lua_helper.add_callback(lua, "saveWeekScore", function():Void
-		{
-			PlayState.instance.saveWeekScore();
-		});
-		
-		Lua_helper.add_callback(lua, "showPopUp", function(message:String, title:String):Void
-		{
-			CoolUtil.showPopUp(message, title);
-		});
-		
-		Lua_helper.add_callback(lua, "CloseGame", function():Void
-		{
-			lime.system.System.exit(1);
-		});
-
 		call('onCreate', []);
 		#end
 	}
