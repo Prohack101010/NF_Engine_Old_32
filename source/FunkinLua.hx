@@ -1,5 +1,6 @@
 package;
 
+import mobile.psychlua.Functions;
 import openfl.display.BitmapData;
 #if LUA_ALLOWED
 import llua.Lua;
