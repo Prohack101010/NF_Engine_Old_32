@@ -40,7 +40,7 @@ using StringTools;
 class MobileOptionsSubState extends BaseOptionsMenu
 {
     #if android
-	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_NF", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_ONLINE"];
+	var storageTypes:Array<String> = ["EXTERNAL_DATA", "EXTERNAL", "EXTERNAL_EX", "EXTERNAL_PE", "EXTERNAL_OBB", "EXTERNAL_MEDIA", "EXTERNAL_ONLINE"];
 	var externalPaths:Array<String> = StorageUtil.checkExternalPaths(true);
 	final lastStorageType:String = ClientPrefs.storageType;
 	#end
@@ -170,7 +170,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		
     	try
     	{
-    		if (lastStorageType != 'EXTERNAL' || lastStorageType != 'EXTERNAL_EX' || lastStorageType != 'EXTERNAL_NF' || lastStorageType != 'EXTERNAL_ONLINE')
+    		if (lastStorageType != 'EXTERNAL' || lastStorageType != 'EXTERNAL_EX' || lastStorageType != 'EXTERNAL_PE' || lastStorageType != 'EXTERNAL_ONLINE')
     		Sys.command('rm', ['-rf', lastStoragePath]);
     	}
     	catch (e:haxe.Exception)

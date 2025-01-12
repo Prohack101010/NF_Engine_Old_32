@@ -1007,13 +1007,14 @@ class FreeplayState extends MusicBeatState
 	
 	function SearchChangeSelection(playSound:Bool = true)
 	{
+	    curSelected = songs.length - 1;
+	    
 		if(playSound) FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		var newColor:Int = songs[curSelected].color;
 		if(newColor != intendedColor) {
-			if(colorTween != null) {
+			if(colorTween != null)
 				colorTween.cancel();
-			}
 			intendedColor = newColor;
 			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
@@ -1022,25 +1023,29 @@ class FreeplayState extends MusicBeatState
 			});
 		}
 
-		// selector.y = (70 * curSelected) + 30;
+		#if !switch
+		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
+		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
+		#end
 
 		var bullShit:Int = 0;
 
 		for (i in 0...iconArray.length)
-		{
 			iconArray[i].alpha = 0.6;
-		}
 
 		iconArray[curSelected].alpha = 1;
 
 		for (item in grpSongs.members)
 		{
+			item.targetY = bullShit - curSelected;
 			bullShit++;
+
 			item.alpha = 0.6;
-			if (item.targetY == curSelected)
+
+			if (item.targetY == 0)
 				item.alpha = 1;
 		}
-
+		
 		Paths.currentModDirectory = songs[curSelected].folder;
 		PlayState.storyWeek = songs[curSelected].week;
 
@@ -1063,19 +1068,17 @@ class FreeplayState extends MusicBeatState
 			}
 
 			if(diffs.length > 0 && diffs[0].length > 0)
-			{
 				CoolUtil.difficulties = diffs;
-			}
 		}
 		
 		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
-		{
 			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));
-		}
 		else
-		{
 			curDifficulty = 0;
-		}
+
+		var newPos:Int = CoolUtil.difficulties.indexOf(lastDifficultyName);
+		if(newPos > -1)
+			curDifficulty = newPos;
 	}
 	
 	function changeDiff(change:Int = 0)

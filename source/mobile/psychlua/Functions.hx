@@ -12,6 +12,11 @@ class MobileFunctions
 	public static function implement(funk:FunkinLua)
 	{
 	    var lua:State = funk.lua;
+	    
+	    Lua_helper.add_callback(lua, "MobileC", function(enabled:Bool = false):Void
+		{
+			MusicBeatState.mobilec.visible = enabled;
+		});
 
         #if mobile
 		Lua_helper.add_callback(lua, "vibrate", function(duration:Null<Int>, ?period:Null<Int>)
