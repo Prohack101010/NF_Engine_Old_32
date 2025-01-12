@@ -115,7 +115,7 @@ class MobileOptionsSubState extends BaseOptionsMenu
 		"Choose how your hitbox should look like.",
 		'hitboxtype',
 		'string',
-		Gradient
+		'Gradient',
 		['Gradient', 'No Gradient' , 'No Gradient (Old)']);
 	addOption(option);
 
