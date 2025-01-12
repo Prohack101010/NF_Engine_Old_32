@@ -73,8 +73,8 @@ class MobileOptionsSubState extends BaseOptionsMenu
     			"Choose VirtualPad Skin",
     			'VirtualPadSkin',
     			'string',
+    			'original',
     			virtualpadSkinList);
-    
     		addOption(option);
     		option.onChange = resetVirtualPad;
 	    }
