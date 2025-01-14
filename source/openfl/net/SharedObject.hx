@@ -20,6 +20,14 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 
+//SaveUtil
+#if android
+import android.Tools;
+import android.callback.CallBack;
+#end
+import lime.system.System as LimeSystem;
+import haxe.Exception;
+
 #if !openfl_debug
 @:fileXml('tags="haxe,release"')
 @:noDebug
@@ -269,7 +277,7 @@ class SharedObject extends EventDispatcher
 	@:noCompletion private static function __getPath(localPath:String, name:String):String
 	{
 		#if lime
-		var path = #if mobile StorageUtil.getStorageDirectory(true, "SAVE_FOLDER") + "__sol/" #else System.applicationStorageDirectory + '/' #end + localPath + "/";
+		var path = #if mobile SaveUtil.getSaveDirectory("SAVE_FOLDER") + "__sol/" #else System.applicationStorageDirectory + '/' #end + localPath + "/";
 
 		name = StringTools.replace(name, "//", "/");
 		name = StringTools.replace(name, "//", "/");
@@ -411,4 +419,46 @@ class SharedObject extends EventDispatcher
 }
 #else
 typedef SharedObject = flash.net.SharedObject;
+#end
+
+/**
+ * A save class.
+ * @author Mihai Alexandru (M.A. Jigsaw), Karim Akra and Lily Ross (mcagabe19)
+ */
+class SaveUtil
+{
+	#if sys
+	public static function getSaveDirectory(?forcedType:String = null):String
+	{
+		var daPath:String = '';
+		#if android
+		daPath = SaveFolders.fromStrForce(forcedType);
+		daPath = Path.addTrailingSlash(daPath);
+		#elseif ios
+		daPath = LimeSystem.documentsDirectory;
+		#end
+
+		return daPath;
+	}
+	#end
+}
+
+#if android
+@:runtimeValue
+enum abstract SaveFolders(String) from String to String
+{
+    final forcedPath = '/storage/emulated/0/';
+	final packageNameLocal = 'com.kraloyuncu.nfengine063modified';
+
+	var SAVE_FOLDER = "SAVE_FOLDER";
+
+	public static function fromStrForce(str:String):SaveFolders
+	{
+		return switch (str)
+		{
+			case "SAVE_FOLDER": forcedPath + 'Android/data/' + packageNameLocal + '/saves';
+			default: forcedPath + 'Android/data/' + packageNameLocal + '/saves';
+		}
+	}
+}
 #end
