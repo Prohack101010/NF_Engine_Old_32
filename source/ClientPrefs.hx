@@ -170,7 +170,7 @@ class ClientPrefs {
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.storageType = storageType;
-		#ene
+		#end
 		
 		//Psych Engine
 		FlxG.save.data.downScroll = downScroll;

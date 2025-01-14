@@ -377,17 +377,17 @@ class ChartingState extends MusicBeatState
 		#if mobile
 		text =
 		"Open AutoSave can save chart every minute(At Song UI)
-		\nOpen Close Tips to close those tips (At Charting UI)
-		\nG - Change chart UI
-		\nUP/Down - Change Conductor's strum time
-		\nC + Left/Right - Go to the previous/next section
-		\nLeft/Right - Change Snap
-		\nZ - Reset Song Playback Rate
-		\nHold C to move 4x faster,Hold X to move 10x faster
+		\nUp/Down - Change Conductor's strum time
+		\nLeft/Right - Go to the previous/next section
+		\nG - Reset Song Playback Rate
+		\nHold Y to move 4x faster
+		\nHold F and touch on an arrow to select it
 		\nV/D - Zoom in/out
-		\nB - Test your chart inside Chart Editor
-		\nUP/Down(Right Side) - Decrease/Increase Note Sustain Length
-		\nY - Stop/Resume song";
+		\n
+		\nC - Test your chart inside Chart Editor
+		\nA - Play your chart
+		\nUp/Down (Right Side) - Decrease/Increase Note Sustain Length
+		\nX - Stop/Resume song";
 		#end
 
         tipTextGroup = new FlxTypedGroup<FlxText>();
