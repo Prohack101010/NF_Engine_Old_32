@@ -54,7 +54,9 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		if (label != "Adjust Delay and Combo"){
+		    #if mobile
 			removeVirtualPad();
+			#end
 			persistentUpdate = false;
 		}
 
