@@ -20,7 +20,7 @@ import flixel.addons.ui.FlxUIAssets;
 import flixel.addons.ui.StrNameLabel;
 import flixel.addons.ui.FlxUI;
 
-#if android
+#if mobile
 import flixel.input.actions.FlxActionInput;
 #end
 /*
@@ -39,10 +39,12 @@ The differences are the following:
 class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget implements IFlxUIClickable implements IHasParams
 {
  
+    #if mobile
     function getVirtualPad():FlxVirtualPad {
       for (th in FlxG.state) if (th is FlxVirtualPad) return cast(th, FlxVirtualPad);
       return null;
     }
+    #end
     
 	public var skipButtonUpdate(default, set):Bool;
 
@@ -438,7 +440,7 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 		#if FLX_MOUSE
 		if (dropPanel.visible)
 		{
-			#if android //thanks gamerbross -saw
+			#if mobile //thanks gamerbross -saw
 			if(list.length > 1 && canScroll) 
 			{
 				for (swipe in FlxG.swipes)
@@ -447,14 +449,14 @@ class FlxUIDropDownMenuCustom extends FlxUIGroup implements IFlxUIWidget impleme
 					var g = swipe.startPosition.y - swipe.endPosition.y;
 					if (25 <= Math.sqrt(f * f + g * g))
 					{
-						if ((-45 <= swipe.startPosition.angleBetween(swipe.endPosition) && 45 >= swipe.startPosition.angleBetween(swipe.endPosition)) #if android || getVirtualPad().buttonCEDown.pressed #end || FlxG.mouse.wheel > 0 || FlxG.keys.justPressed.UP)
+						if ((-45 <= swipe.startPosition.angleBetween(swipe.endPosition) && 45 >= swipe.startPosition.angleBetween(swipe.endPosition)) #if mobile || getVirtualPad().buttonCEDown.pressed #end || FlxG.mouse.wheel > 0 || FlxG.keys.justPressed.UP)
 						{
 							// Go down
 							currentScroll++;
 							if(currentScroll >= list.length) currentScroll = list.length-1;
 							updateButtonPositions();
 						}
-						else if (-180 <= swipe.startPosition.angleBetween(swipe.endPosition) && -135 >= swipe.startPosition.angleBetween(swipe.endPosition) || (135 <= swipe.startPosition.angleBetween(swipe.endPosition) && 180 >= swipe.startPosition.angleBetween(swipe.endPosition)) #if android || getVirtualPad().buttonCEDown.pressed #end || FlxG.mouse.wheel < 0 || FlxG.keys.justPressed.DOWN)
+						else if (-180 <= swipe.startPosition.angleBetween(swipe.endPosition) && -135 >= swipe.startPosition.angleBetween(swipe.endPosition) || (135 <= swipe.startPosition.angleBetween(swipe.endPosition) && 180 >= swipe.startPosition.angleBetween(swipe.endPosition)) #if mobile || getVirtualPad().buttonCEDown.pressed #end || FlxG.mouse.wheel < 0 || FlxG.keys.justPressed.DOWN)
 						{
 							// Go up
 							--currentScroll;

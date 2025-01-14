@@ -257,7 +257,7 @@ class MainMenuState extends MusicBeatState
 		add(test3);
         */
         
-		#if android
+		#if mobile
 		addVirtualPad(NONE, A_B_E);
 		//_virtualpad.cameras = [camHUD];
 		#end
@@ -384,7 +384,7 @@ class MainMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new TitleState());
 			}	
-				
+			#if mobile
 			else if (_virtualpad.buttonZ.justPressed)
 			{
 				selectedSomethin = true;
@@ -393,9 +393,10 @@ class MainMenuState extends MusicBeatState
 			    MusicBeatState.switchState(new options.OptionsState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
+			#end
 			
 			#if (desktop || android)
-			else if (FlxG.keys.anyJustPressed(debugKeys) #if android || _virtualpad.buttonE.justPressed #end)
+			else if (FlxG.keys.anyJustPressed(debugKeys) #if mobile || _virtualpad.buttonE.justPressed #end)
 			{
 				selectedSomethin = true;
 				MusicBeatState.switchState(new MasterEditorMenu());

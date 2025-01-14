@@ -149,9 +149,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		changeSelection();
 		reloadCheckboxes();
 
-                #if android
-                addVirtualPad(FULL, A_B_C);
-                #end
+        #if mobile
+        addVirtualPad(FULL, A_B_C);
+        #end
         grpNote = new FlxTypedGroup<FlxSprite>();
 		add(grpNote);
 	}
@@ -269,7 +269,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if(controls.RESET  #if android || _virtualpad.buttonC.justPressed #end)
+			if(controls.RESET #if mobile || _virtualpad.buttonC.justPressed #end)
 			{
 				for (i in 0...optionsArray.length)
 				{

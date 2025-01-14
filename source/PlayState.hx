@@ -1423,9 +1423,11 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.hudType == 'Kade Engine')
 		    EngineWatermark.cameras = [camHUD];
 
+        #if mobile
 		addMobileControls();
     	MusicBeatState.mobilec.visible = false;
     	if (ClientPrefs.hitboxmode == 'New' && !ClientPrefs.hitboxhint) MusicBeatState.mobilec.alpha = 0.000001;
+    	#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -2334,8 +2336,10 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', [], false);
 		if(ret != FunkinLua.Function_Stop) {
 			if (skipCountdown || startOnTime > 0) skipArrowStartTween = true;
+			#if mobile
 			MusicBeatState.mobilec.visible = true;
     		if (MusicBeatState.checkHitbox != true) MusicBeatState.mobilec.alpha = ClientPrefs.VirtualPadAlpha; //better for pc build
+    		#end
 			
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3863,7 +3867,9 @@ class PlayState extends MusicBeatState
 
     function addDPad()
 	{
+	    #if mobile
 		addVirtualPad(FULL, NONE);
+		#end
 	}
 
     function openOptionsMenu()
@@ -4454,7 +4460,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
+        #if mobile
         MusicBeatState.mobilec.visible = false;
+        #end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
 		timeTxt.visible = false;

@@ -104,27 +104,6 @@ class OptionsState extends MusicBeatState
 		//bgMove.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bgMove);
 		
-		#if android
-		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press X to Go In Mobile Controls Menu', 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.globalAntialiasing;
-		add(tipText);
-		tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Mobile Options Menu', 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.globalAntialiasing;
-		add(tipText);
-		tipText = new FlxText(150, FlxG.height - 64, 0, 'Press E to Go In Extra Key Return Menu', 16);
-		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		tipText.borderSize = 1.25;
-		tipText.scrollFactor.set();
-		tipText.antialiasing = ClientPrefs.globalAntialiasing;
-		add(tipText);
-		#end	
-		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);	
 
@@ -140,6 +119,27 @@ class OptionsState extends MusicBeatState
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
 		add(selectorRight);
+		
+		#if mobile
+		tipText = new FlxText(150, FlxG.height - 24, 0, 'Press X to Go In Mobile Controls Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
+		tipText = new FlxText(150, FlxG.height - 44, 0, 'Press Y to Go In Mobile Options Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
+		tipText = new FlxText(150, FlxG.height - 64, 0, 'Press Z to Go In Extra Key Return Menu', 16);
+		tipText.setFormat("VCR OSD Mono", 17, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		tipText.borderSize = 1.25;
+		tipText.scrollFactor.set();
+		tipText.antialiasing = ClientPrefs.globalAntialiasing;
+		add(tipText);
+		#end
 
 		changeSelection();
 		ClientPrefs.saveSettings();
@@ -147,7 +147,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		#if android
+		#if mobile
 		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
 		#end
 
@@ -157,8 +157,10 @@ class OptionsState extends MusicBeatState
 	override function closeSubState() {
 		super.closeSubState();
 		ClientPrefs.saveSettings();
+		#if mobile
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
+		#ene
 		persistentUpdate = true;
 	}
 
@@ -170,7 +172,8 @@ class OptionsState extends MusicBeatState
 
 		if (controls.UI_DOWN_P)
 			changeSelection(1);
-
+        
+        #if mobile
 		if (_virtualpad.buttonX.justPressed) {
 		    removeVirtualPad();
 			persistentUpdate = false;
@@ -188,6 +191,7 @@ class OptionsState extends MusicBeatState
 			persistentUpdate = false;
 		    openSubState(new MobileExtraControl());
 		}
+		#ene
 
 		if (controls.BACK) {
 			if (PauseSubState.MoveOption) {

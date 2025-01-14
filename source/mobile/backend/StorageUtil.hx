@@ -18,14 +18,14 @@ class StorageUtil
 	// root directory, used for handling the saved storage type and path
 	public static final rootDir:String = LimeSystem.applicationStorageDirectory;
 
-	public static function getStorageDirectory(?force:Bool = false):String
+	public static function getStorageDirectory(?force:Bool = false, ?forcedType:String = null):String
 	{
 		var daPath:String = '';
 		#if android
 		if (!FileSystem.exists(rootDir + 'storagetype.txt'))
 			File.saveContent(rootDir + 'storagetype.txt', ClientPrefs.storageType);
 		var curStorageType:String = File.getContent(rootDir + 'storagetype.txt');
-		daPath = force ? StorageType.fromStrForce(curStorageType) : StorageType.fromStr(curStorageType);
+		daPath = force ? StorageType.fromStrForce(forcedType != null ? forcedType : curStorageType) : StorageType.fromStr(forcedType != null ? forcedType : curStorageType);
 		daPath = Path.addTrailingSlash(daPath);
 		#elseif ios
 		daPath = LimeSystem.documentsDirectory;
@@ -163,6 +163,7 @@ enum abstract StorageType(String) from String to String
 	final fileLocalEX = 'Psych Extended'; //Fun Fact: Psych Extended v1.0.2 is officially cancelled because everything is done
 
 	var EXTERNAL_DATA = "EXTERNAL_DATA";
+	var SAVE_FOLDER = "SAVE_FOLDER";
 	var EXTERNAL_OBB = "EXTERNAL_OBB";
 	var EXTERNAL_MEDIA = "EXTERNAL_MEDIA";
 	var EXTERNAL = "EXTERNAL";
@@ -196,6 +197,7 @@ enum abstract StorageType(String) from String to String
 	public static function fromStrForce(str:String):StorageType
 	{
 		final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
+		final SAVE_FOLDER = forcedPath + 'Android/data/' + packageNameLocal + '/saves';
 		final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;
 		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
 		final EXTERNAL_ONLINE = forcedPath + '.' + fileLocalONLINE;
@@ -205,8 +207,8 @@ enum abstract StorageType(String) from String to String
 
 		return switch (str)
 		{
-			
 			case "EXTERNAL_DATA": EXTERNAL_DATA;
+			case "SAVE_FOLDER": SAVE_FOLDER;
 			case "EXTERNAL_OBB": EXTERNAL_OBB;
 			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
 			case "EXTERNAL": EXTERNAL;

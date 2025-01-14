@@ -7,6 +7,7 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
+    #if mobile
     //Mobile Things
 	public static var wideScreen:Bool = false;
 	#if android
@@ -26,6 +27,7 @@ class ClientPrefs {
 	public static var hitboxLocation:String = 'Bottom';
 	public static var hitboxalpha:Float = #if mobile 0.7 #else 0 #end; //someone request this lol
 	public static var coloredvpad:Bool = true;
+	#end
 
     //Psych Engine
 	public static var downScroll:Bool = true;
@@ -58,7 +60,7 @@ class ClientPrefs {
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
 	public static var oppNoteAlpha:Float = 0.65;
-	public static var controllerMode:Bool = #if android true #else false #end;
+	public static var controllerMode:Bool = #if mobile true #else false #end;
 	public static var hitsoundVolume:Float = 0;
 	public static var misssoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
@@ -150,6 +152,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+	    #if mobile
 	    //Mobile Things
 		FlxG.save.data.wideScreen = wideScreen;
 		FlxG.save.data.VirtualPadSkin = VirtualPadSkin;
@@ -167,6 +170,7 @@ class ClientPrefs {
 		FlxG.save.data.hitboxalpha = hitboxalpha;
 		FlxG.save.data.coloredvpad = coloredvpad;
 		FlxG.save.data.storageType = storageType;
+		#ene
 		
 		//Psych Engine
 		FlxG.save.data.downScroll = downScroll;
@@ -237,6 +241,7 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+	    #if mobile
 	    if(FlxG.save.data.storageType != null)
 			storageType = FlxG.save.data.storageType;
 	    if(FlxG.save.data.wideScreen != null)
@@ -269,6 +274,7 @@ class ClientPrefs {
 			hitboxalpha = FlxG.save.data.hitboxalpha;
 	    if(FlxG.save.data.coloredvpad != null)
 			coloredvpad = FlxG.save.data.coloredvpad;
+		#end
 		
 		if(FlxG.save.data.downScroll != null)
 			downScroll = FlxG.save.data.downScroll;

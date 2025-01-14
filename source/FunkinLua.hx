@@ -1,6 +1,8 @@
 package;
 
+#if mobile
 import mobile.psychlua.Functions;
+#end
 import openfl.display.BitmapData;
 #if LUA_ALLOWED
 import llua.Lua;
@@ -2911,7 +2913,7 @@ class FunkinLua {
 		});
 		
 		#if android AndroidFunctions.implement(this); #end
-		MobileFunctions.implement(this);
+		#if mobile MobileFunctions.implement(this); #end
 		
 		call('onCreate', []);
 		#end

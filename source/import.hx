@@ -7,7 +7,11 @@ import sys.io.*;
 import js.html.*;
 #end
 
+// Crash Handler
+import backend.CrashHandler;
+
 // Mobile Things
+#if mobile
 import mobile.flixel.*;
 import mobile.states.*;
 import mobile.objects.*;
@@ -19,6 +23,7 @@ import mobile.backend.Data;
 import mobile.flixel.FlxHitbox;
 import mobile.flixel.FlxVirtualPad;
 import mobile.flixel.FlxNewHitbox;
+#end
 
 // Android
 #if android

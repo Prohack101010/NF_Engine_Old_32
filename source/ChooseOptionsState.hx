@@ -38,14 +38,14 @@ class ChooseOptionsState extends MusicBeatState
 	function openSelectedSubstate(label:String) {
 		switch(label) {
 			case 'Camellia Mode Option':
-				#if android
+				#if mobile
 				removeVirtualPad();
 				#end
 				PlayState.SONG = Song.loadFromJson('setting-mania-c', 'setting');
 			
 				LoadingState.loadAndSwitchState(new PlayState());
 			case 'Normal Option':
-				#if android
+				#if mobile
 				removeVirtualPad();
 				#end
 				LoadingState.loadAndSwitchState(new options.OptionsState());			
@@ -93,7 +93,7 @@ class ChooseOptionsState extends MusicBeatState
         	
         
 			
-		/* #if android
+		/* #if mobile
 		var tipText:FlxText = new FlxText(10, 12, 0, 'Press X to Go In Android Controls Menu', 16);
 		tipText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		tipText.borderSize = 2;
@@ -110,7 +110,7 @@ class ChooseOptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
-		#if android
+		#if mobile
 		addVirtualPad(UP_DOWN, A_B);
 		#end
 

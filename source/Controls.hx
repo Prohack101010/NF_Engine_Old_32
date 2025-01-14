@@ -43,6 +43,7 @@ enum abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	#if mobile
 	var EXTRA1 = 'extra1';
 	var EXTRA1_P = 'extra1-press';
 	var EXTRA1_R = 'extra1-release';
@@ -55,6 +56,7 @@ enum abstract Action(String) to String from String
 	var EXTRA4 = 'extra4';
 	var EXTRA4_P = 'extra4-press';
 	var EXTRA4_R = 'extra4-release';
+	#end
 }
 
 enum Device
@@ -82,10 +84,12 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
+	#if mobile
 	EXTRA1;
 	EXTRA2;
 	EXTRA3;
 	EXTRA4;
+	#end
 }
 
 enum KeyboardScheme
@@ -130,6 +134,7 @@ class Controls extends FlxActionSet
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
+	#if mobile
     var _extra1 = new FlxActionDigital(Action.EXTRA1);
 	var _extra1P = new FlxActionDigital(Action.EXTRA1_P);
 	var _extra1R = new FlxActionDigital(Action.EXTRA1_R);
@@ -142,6 +147,7 @@ class Controls extends FlxActionSet
 	var _extra4 = new FlxActionDigital(Action.EXTRA4);
 	var _extra4P = new FlxActionDigital(Action.EXTRA4_P);
 	var _extra4R = new FlxActionDigital(Action.EXTRA4_R);
+	#end
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -291,7 +297,8 @@ class Controls extends FlxActionSet
 
 	inline function get_RESET()
 		return _reset.check();
-		
+	
+	#if mobile	
 	public var EXTRA1(get, never):Bool;
 
 	inline function get_EXTRA1()
@@ -351,6 +358,7 @@ class Controls extends FlxActionSet
 
 	inline function get_EXTRA4_P()
 		return _extra4P.check();
+	#end
 	
 	public function new(name, scheme = None)
 	{
@@ -384,6 +392,7 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		#if mobile
 		add(_extra1);
 		add(_extra1P);
 		add(_extra1R);
@@ -396,6 +405,7 @@ class Controls extends FlxActionSet
 		add(_extra4);
 		add(_extra4P);
 		add(_extra4R);
+		#end
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -403,6 +413,7 @@ class Controls extends FlxActionSet
 		setKeyboardScheme(scheme, false);
 	}
 
+    #if mobile
 	public var trackedInputsUI:Array<FlxActionInput> = [];
 	public var trackedInputsNOTES:Array<FlxActionInput> = [];
 	
@@ -445,10 +456,12 @@ class Controls extends FlxActionSet
 		inline forEachBound(Control.NOTE_DOWN, (action, state) -> addHitboxNOTES(action, Hitbox.buttonDown, state));
 		inline forEachBound(Control.NOTE_LEFT, (action, state) -> addHitboxNOTES(action, Hitbox.buttonLeft, state));
 		inline forEachBound(Control.NOTE_RIGHT, (action, state) -> addHitboxNOTES(action, Hitbox.buttonRight, state));
+		#if mobile
 		inline forEachBound(Control.EXTRA1, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra1, state));
 		inline forEachBound(Control.EXTRA2, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra2, state));
 		inline forEachBound(Control.EXTRA3, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra3, state));
 		inline forEachBound(Control.EXTRA4, (action, state) -> addHitboxNOTES(action, Hitbox.buttonExtra4, state));
+		#end
 	}
 
 	public function setVirtualPadUI(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void
@@ -571,6 +584,7 @@ class Controls extends FlxActionSet
 			}
 		}
 	}
+	#end
 
 	override function update()
 	{
@@ -619,10 +633,12 @@ class Controls extends FlxActionSet
 			case BACK: _back;
 			case PAUSE: _pause;
 			case RESET: _reset;
+			#if mobile
 			case EXTRA1: _extra1;
 			case EXTRA2: _extra2;
 			case EXTRA3: _extra3;
 			case EXTRA4: _extra4;
+			#end
 		}
 	}
 
@@ -682,6 +698,7 @@ class Controls extends FlxActionSet
 				func(_pause, JUST_PRESSED);
 			case RESET:
 				func(_reset, JUST_PRESSED);
+			#if mobile
 			case EXTRA1:
 				func(_extra1, PRESSED);
 				func(_extra1P, JUST_PRESSED);
@@ -698,6 +715,7 @@ class Controls extends FlxActionSet
 				func(_extra4, PRESSED);
 				func(_extra4P, JUST_PRESSED);
 				func(_extra4R, JUST_RELEASED);
+			#end
 		}
 	}
 

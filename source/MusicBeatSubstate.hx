@@ -27,7 +27,8 @@ class MusicBeatSubstate extends FlxSubState
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
-
+    
+    #if mobile
 	var _virtualpad:FlxVirtualPad;
 	var trackedinputsUI:Array<FlxActionInput> = [];
 	var trackedinputsNOTES:Array<FlxActionInput> = [];
@@ -65,6 +66,7 @@ class MusicBeatSubstate extends FlxSubState
 		if (_virtualpad != null)
 			_virtualpad = FlxDestroyUtil.destroy(_virtualpad);
 	}
+	#end
 
 	override function update(elapsed:Float)
 	{

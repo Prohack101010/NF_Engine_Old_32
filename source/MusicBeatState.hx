@@ -36,6 +36,7 @@ class MusicBeatState extends FlxUIState
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
+    #if mobile
 	var _virtualpad:FlxVirtualPad;
 	public static var mobilec:MobileControls;
 	
@@ -73,20 +74,6 @@ class MusicBeatState extends FlxUIState
 	
 	public function addMobileControls(?mode:Null<String>) {
 		mobilec = new MobileControls();
-		
-		switch (mode.toLowerCase())
-		{
-		    case 'normal':
-				mobilec.visible = true;
-			case 'shift':
-			    mobilec.visible = true;
-			case 'space':
-				mobilec.visible = true;
-			case 'both':
-				mobilec.visible = true;
-			default:
-				// do nothing
-		}
 
 		switch (mobilec.mode)
 		{
@@ -136,6 +123,7 @@ class MusicBeatState extends FlxUIState
 		if (mobilec != null)
 			mobilec = FlxDestroyUtil.destroy(mobilec);
 	}
+	#end
 
 	override function create() {
 		camBeat = FlxG.camera;

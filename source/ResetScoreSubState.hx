@@ -71,7 +71,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 		add(noText);
 		updateOptions();
 
-        #if android
+        #if mobile
         addVirtualPad(LEFT_RIGHT, A_B);
         addVirtualPadCamera();
         #end
@@ -105,12 +105,7 @@ class ResetScoreSubState extends MusicBeatSubstate
 				}
 			}
 			FlxG.sound.play(Paths.sound('cancelMenu'), 1);
-			#if android
-                        FlxTransitionableState.skipNextTransOut = true;
-			FlxG.resetState();
-                        #else
-                        close();
-                        #end
+            close();
 		}
 		super.update(elapsed);
 	}
