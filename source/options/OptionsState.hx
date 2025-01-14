@@ -160,7 +160,7 @@ class OptionsState extends MusicBeatState
 		#if mobile
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B_X_Y_Z);
-		#ene
+		#end
 		persistentUpdate = true;
 	}
 
@@ -191,7 +191,7 @@ class OptionsState extends MusicBeatState
 			persistentUpdate = false;
 		    openSubState(new MobileExtraControl());
 		}
-		#ene
+		#end
 
 		if (controls.BACK) {
 			if (PauseSubState.MoveOption) {
