@@ -427,7 +427,7 @@ typedef SharedObject = flash.net.SharedObject;
  */
 class SaveUtil {
 	#if sys
-	public static function getSaveDirectory():String {
+	public static function getSaveDirectory() {
 		#if android
 		return Path.addTrailingSlash('/storage/emulated/0/Android/data/' + lime.app.Application.current.meta.get('packageName'));
 		#elseif ios
