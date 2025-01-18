@@ -277,7 +277,8 @@ class SharedObject extends EventDispatcher
 	@:noCompletion private static function __getPath(localPath:String, name:String):String
 	{
 		#if lime
-		var path = #if mobile SaveUtil.getSaveDirectory() + "__sol/" #else System.applicationStorageDirectory + '/' #end + localPath + "/";
+		
+		var path = #if (mobile && PUBLIC_SAVE_DIRECTORY) SaveUtil.getSaveDirectory() + "__sol/" #else System.applicationStorageDirectory + '/' #end + localPath + "/";
 
 		name = StringTools.replace(name, "//", "/");
 		name = StringTools.replace(name, "//", "/");

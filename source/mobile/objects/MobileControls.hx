@@ -11,7 +11,7 @@ class Config {
 
 	public function new(saveName:String) {
 		save = new FlxSave();
-		save.bind(saveName);
+		save.bind(saveName, CoolUtil.getSavePath());
 
 		if (saveName == 'saved-extendControls') isExtend = true;
 	}
